@@ -102,6 +102,7 @@ add_subdirectory(test)
 
 add_headers(
     comparable.hpp
+    orderable.hpp
 )
 
 install(TARGETS
