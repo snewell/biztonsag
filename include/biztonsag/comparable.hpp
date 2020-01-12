@@ -1,6 +1,7 @@
 #ifndef BIZTONSAG_COMPARABLE_HPP
 #define BIZTONSAG_COMPARABLE_HPP 1
 
+#include <type_traits>
 #include <utility>
 
 #define BTSHN_MAKE_COMPARABLE_INNER2(t, tag_name, type_name)                   \
@@ -27,76 +28,78 @@ namespace btshn
     class Comparable
     {
     public:
-        explicit Comparable(T value);
+        constexpr explicit Comparable(T value) noexcept(
+            std::is_nothrow_move_constructible<T>::value);
 
-        explicit operator T &() noexcept;
+        constexpr explicit operator T &() noexcept;
 
-        explicit operator T const &() const noexcept;
+        constexpr explicit operator T const &() const noexcept;
 
-        T & operator*() noexcept;
+        constexpr T & operator*() noexcept;
 
-        T const & operator*() const noexcept;
+        constexpr T const & operator*() const noexcept;
 
-        T * operator->() noexcept;
+        constexpr T * operator->() noexcept;
 
-        T const * operator->() const noexcept;
+        constexpr T const * operator->() const noexcept;
 
     private:
         T m_value;
     };
 
     template <typename T, typename TAG>
-    inline bool operator==(Comparable<T, TAG> const & lhs,
-                           Comparable<T, TAG> const & rhs) noexcept
+    constexpr bool operator==(Comparable<T, TAG> const & lhs,
+                              Comparable<T, TAG> const & rhs) noexcept
     {
         return static_cast<T const &>(lhs) == static_cast<T const &>(rhs);
     }
 
     template <typename T, typename TAG>
-    inline bool operator!=(Comparable<T, TAG> const & lhs,
-                           Comparable<T, TAG> const & rhs) noexcept
+    constexpr bool operator!=(Comparable<T, TAG> const & lhs,
+                              Comparable<T, TAG> const & rhs) noexcept
     {
         return static_cast<T const &>(lhs) != static_cast<T const &>(rhs);
     }
 
     template <typename T, typename TAG>
-    inline Comparable<T, TAG>::Comparable(T value)
+    constexpr Comparable<T, TAG>::Comparable(T value) noexcept(
+        std::is_nothrow_move_constructible<T>::value)
       : m_value{std::move(value)}
     {
     }
 
     template <typename T, typename TAG>
-    inline Comparable<T, TAG>::operator T &() noexcept
+    constexpr Comparable<T, TAG>::operator T &() noexcept
     {
         return m_value;
     }
 
     template <typename T, typename TAG>
-    inline Comparable<T, TAG>::operator T const &() const noexcept
+    constexpr Comparable<T, TAG>::operator T const &() const noexcept
     {
         return m_value;
     }
 
     template <typename T, typename TAG>
-    T & Comparable<T, TAG>::operator*() noexcept
+    constexpr T & Comparable<T, TAG>::operator*() noexcept
     {
         return m_value;
     }
 
     template <typename T, typename TAG>
-    T const & Comparable<T, TAG>::operator*() const noexcept
+    constexpr T const & Comparable<T, TAG>::operator*() const noexcept
     {
         return m_value;
     }
 
     template <typename T, typename TAG>
-    T * Comparable<T, TAG>::operator->() noexcept
+    constexpr T * Comparable<T, TAG>::operator->() noexcept
     {
         return m_value;
     }
 
     template <typename T, typename TAG>
-    T const * Comparable<T, TAG>::operator->() const noexcept
+    constexpr T const * Comparable<T, TAG>::operator->() const noexcept
     {
         return m_value;
     }
