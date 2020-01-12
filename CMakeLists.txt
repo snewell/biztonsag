@@ -16,19 +16,19 @@ set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 include(CPack)
 
-option(BIZTONSAGE_BUILD_TESTS "Build optional tests (requires GTest)" ON)
+option(BIZTONSAG_BUILD_TESTS "Build optional tests (requires GTest)" ON)
 
 enable_testing()
 
-if(BIZTONSAGE_BUILD_TESTS)
-    if(NOT BIZTONSAGE_MAXIMUM_TEST_STANDARD)
-        set(BIZTONSAGE_MAXIMUM_TEST_STANDARD 17
+if(BIZTONSAG_BUILD_TESTS)
+    if(NOT BIZTONSAG_MAXIMUM_TEST_STANDARD)
+        set(BIZTONSAG_MAXIMUM_TEST_STANDARD 17
             CACHE STRING "The maximum C++ standard to use for tests (default: 17)"
         )
     endif()
 
     foreach(supported_version IN ITEMS 14 17)
-        if(${supported_version} LESS_EQUAL ${BIZTONSAGE_MAXIMUM_TEST_STANDARD})
+        if(${supported_version} LESS_EQUAL ${BIZTONSAG_MAXIMUM_TEST_STANDARD})
             message(STATUS "Enabling C++${supported_version} tests")
             list(APPEND test_standards ${supported_version})
         endif()
