@@ -98,6 +98,7 @@ function(add_headers)
     )
 endfunction()
 
+add_subdirectory(examples)
 add_subdirectory(test)
 
 add_headers(
