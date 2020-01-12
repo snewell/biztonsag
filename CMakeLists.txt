@@ -17,6 +17,7 @@ set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 include(CPack)
 
 option(BIZTONSAG_BUILD_TESTS "Build optional tests (requires GTest)" ON)
+option(BIZTONSAG_BUILD_DOCS "Build documentation (requires doxygen)" ON)
 
 enable_testing()
 
@@ -105,6 +106,29 @@ add_headers(
     comparable.hpp
     orderable.hpp
 )
+
+if(BIZTONSAG_BUILD_DOCS)
+    find_program(DOXYGEN "doxygen")
+    if(DOXYGEN)
+        message(STATUS "doxygen location: ${DOXYGEN}")
+        find_program(DOT "dot")
+        if(DOT)
+            message(STATUS "dot location: ${DOT}")
+            set(HAVE_DOT "YES")
+        else()
+            set(HAVE_DOT "NO")
+        endif()
+        configure_file(doxyfile.in "${CMAKE_CURRENT_BINARY_DIR}/doxyfile" @ONLY)
+
+        add_custom_target(docs)
+        add_custom_command(TARGET docs
+            COMMAND "${DOXYGEN}"
+            WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+        )
+    else()
+        message(WARNING "Couldn't find doxygen, disabling documentation")
+    endif()
+endif()
 
 install(TARGETS
         biztonsag
