@@ -8,6 +8,9 @@ function(create_example name)
     set_target_properties(${name} PROPERTIES
         CXX_EXTENSIONS OFF
     )
+    target_compile_features(${name} PRIVATE
+        cxx_std_17
+    )
     add_dependencies(examples ${name})
 endfunction()
 
