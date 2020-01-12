@@ -14,4 +14,5 @@ function(create_example name)
     add_dependencies(examples ${name})
 endfunction()
 
+create_example(safe_string safe_string.cpp)
 create_example(temp temp.cpp)
