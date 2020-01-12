@@ -21,8 +21,8 @@ TEST(Comparable, ctor)
 {
     Foo f{0};
 
-    ASSERT_EQ(0, static_cast<int &>(f));
-    ASSERT_EQ(0, static_cast<int const &>(f));
+    ASSERT_EQ(0, *f);
+    ASSERT_EQ(0, *f);
 }
 
 TEST(Comparable, equal)
