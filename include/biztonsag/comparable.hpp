@@ -28,6 +28,10 @@ namespace btshn
     class Comparable
     {
     public:
+        using value_type = T;
+
+        using tag_type = TAG;
+
         constexpr explicit Comparable(T value) noexcept(
             std::is_nothrow_move_constructible<T>::value);
 
@@ -66,6 +70,8 @@ namespace btshn
         std::is_nothrow_move_constructible<T>::value)
       : m_value{std::move(value)}
     {
+        static_assert(sizeof(Comparable<T, TAG>) == sizeof(T),
+                      "Extra memory requirements");
     }
 
     template <typename T, typename TAG>
