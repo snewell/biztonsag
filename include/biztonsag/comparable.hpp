@@ -3,6 +3,24 @@
 
 #include <utility>
 
+#define BTSHN_MAKE_COMPARABLE_INNER2(t, tag_name, type_name)                   \
+    namespace detail                                                           \
+    {                                                                          \
+        namespace auto_btshn                                                   \
+        {                                                                      \
+            struct tag_name                                                    \
+            {                                                                  \
+            };                                                                 \
+        }                                                                      \
+    }                                                                          \
+    using type_name = ::btshn::Comparable<t, detail::auto_btshn::tag_name>
+
+#define BTSHN_MAKE_COMPARABLE_INNER1(t, tag_first, tag_second, type_name)      \
+    BTSHN_MAKE_COMPARABLE_INNER2(t, tag_first##tag_second, type_name)
+
+#define BTSHN_MAKE_COMPARABLE(t, name)                                         \
+    BTSHN_MAKE_COMPARABLE_INNER1(t, name, Tag, name)
+
 namespace btshn
 {
     template <typename T, typename TAG>

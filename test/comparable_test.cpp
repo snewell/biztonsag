@@ -15,6 +15,8 @@ namespace
     using Bar = btshn::Comparable<int, BarTag>;
 
     using Foo = btshn::Comparable<int, FooTag>;
+
+    BTSHN_MAKE_COMPARABLE(int, Baz);
 } // namespace
 
 TEST(Comparable, ctor)
@@ -39,6 +41,11 @@ TEST(Comparable, not_equal)
     Foo f2{1};
 
     ASSERT_NE(f1, f2);
+}
+
+TEST(ComparableMacro, compiles)
+{
+    Baz b{0};
 }
 
 #if 0

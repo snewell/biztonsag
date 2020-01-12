@@ -9,6 +9,8 @@ namespace
     };
 
     using Foo = btshn::Orderable<int, FooTag>;
+
+    BTSHN_MAKE_ORDERABLE(int, Bar);
 } // namespace
 
 TEST(Orderable, less)
@@ -43,4 +45,9 @@ TEST(Orderable, greater_equal)
 
     ASSERT_GE(f2, f1);
     ASSERT_GE(f2, f2);
+}
+
+TEST(OrderableMacro, compiles)
+{
+    Bar b{0};
 }
