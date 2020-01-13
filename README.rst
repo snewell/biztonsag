@@ -1,5 +1,7 @@
 biztonsag
 =========
+|codacy|
+
 A library that attempts to provide compile-time safety around ubiquitous types.
 
 
@@ -43,6 +45,9 @@ biztonság
   security, safety, behavior, behaviour
 
 
+.. |codacy| image::
+    https://api.codacy.com/project/badge/Grade/7a95931c6be34203be54a921983b5dc2
+    :target: https://www.codacy.com/manual/snewell/biztonsag?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=snewell/biztonsag&amp;utm_campaign=Badge_Grade
 .. _CMake: https://cmake.org
 .. _Google Translate: https://translate.google.com/#view=home&op=translate&sl=auto&tl=hu&text=type%20safety
 .. _GTest: https://github.com/google/googletest/
