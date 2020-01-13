@@ -30,31 +30,31 @@ namespace btshn
     };
 
     template <typename T, typename TAG>
-    constexpr bool operator<(Orderable<T, TAG> const & lhs,
+    constexpr auto operator<(Orderable<T, TAG> const & lhs,
                              Orderable<T, TAG> const & rhs) noexcept
     {
-        return static_cast<T const &>(lhs) < static_cast<T const &>(rhs);
+        return (*lhs) < (*rhs);
     }
 
     template <typename T, typename TAG>
-    constexpr bool operator>(Orderable<T, TAG> const & lhs,
+    constexpr auto operator>(Orderable<T, TAG> const & lhs,
                              Orderable<T, TAG> const & rhs) noexcept
     {
-        return static_cast<T const &>(lhs) > static_cast<T const &>(rhs);
+        return (*lhs) > (*rhs);
     }
 
     template <typename T, typename TAG>
-    constexpr bool operator<=(Orderable<T, TAG> const & lhs,
+    constexpr auto operator<=(Orderable<T, TAG> const & lhs,
                               Orderable<T, TAG> const & rhs) noexcept
     {
-        return !(static_cast<T const &>(lhs) > static_cast<T const &>(rhs));
+        return !((*lhs) > (*rhs));
     }
 
     template <typename T, typename TAG>
-    constexpr bool operator>=(Orderable<T, TAG> const & lhs,
+    constexpr auto operator>=(Orderable<T, TAG> const & lhs,
                               Orderable<T, TAG> const & rhs) noexcept
     {
-        return !(static_cast<T const &>(lhs) < static_cast<T const &>(rhs));
+        return !((*lhs) < (*rhs));
     }
 } // namespace btshn
 

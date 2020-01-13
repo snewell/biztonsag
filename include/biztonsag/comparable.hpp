@@ -52,17 +52,17 @@ namespace btshn
     };
 
     template <typename T, typename TAG>
-    constexpr bool operator==(Comparable<T, TAG> const & lhs,
+    constexpr auto operator==(Comparable<T, TAG> const & lhs,
                               Comparable<T, TAG> const & rhs) noexcept
     {
-        return static_cast<T const &>(lhs) == static_cast<T const &>(rhs);
+        return (*lhs) == (*rhs);
     }
 
     template <typename T, typename TAG>
-    constexpr bool operator!=(Comparable<T, TAG> const & lhs,
+    constexpr auto operator!=(Comparable<T, TAG> const & lhs,
                               Comparable<T, TAG> const & rhs) noexcept
     {
-        return static_cast<T const &>(lhs) != static_cast<T const &>(rhs);
+        return (*lhs) != (*rhs);
     }
 
     template <typename T, typename TAG>
