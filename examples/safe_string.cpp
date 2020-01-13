@@ -10,7 +10,7 @@ namespace
     BTSHN_MAKE_ORDERABLE(std::string, SafeString);
     BTSHN_MAKE_ORDERABLE(std::string, UnsafeString);
 
-    SafeString encode(UnsafeString const & us)
+    auto encode(UnsafeString const & us)
     {
         auto raw = *us;
         static_assert(std::is_same_v<std::string, decltype(raw)>);
@@ -26,10 +26,11 @@ namespace
     }
 } // namespace
 
-int main(int argc, char ** argv)
+int main(int argc, char ** argv) // NOLINT(modernize-use-trailing-return-type)
 {
     for(auto i = 1; i < argc; ++i)
     {
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         UnsafeString us{argv[i]};
         auto ss = encode(us);
         // auto ss2 = encode(ss);

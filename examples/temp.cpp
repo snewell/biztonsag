@@ -6,66 +6,60 @@
 
 namespace
 {
-    struct FahrenheitTag
-    {
-    };
+    BTSHN_MAKE_COMPARABLE(double, Fahrenheit);
+    BTSHN_MAKE_COMPARABLE(double, Celsius);
+    BTSHN_MAKE_COMPARABLE(double, Kelvin);
 
-    struct CelsiusTag
-    {
-    };
-
-    struct KelvinTag
-    {
-    };
-
-    using Fahrenheit = btshn::Comparable<double, FahrenheitTag>;
-    using Celsius = btshn::Comparable<double, CelsiusTag>;
-    using Kelvin = btshn::Comparable<double, KelvinTag>;
+    constexpr auto absolute_zero = -273.15;
+    constexpr auto celsius_fahrenheit_const = 32;
+    constexpr auto celsius_fahrenheit_ratio = 1.8;
 
     namespace detail
     {
         template <typename TO, typename FROM>
-        TO convert(FROM temp) noexcept;
+        auto convert(FROM temp) noexcept -> TO;
 
         template <>
-        Kelvin convert<Kelvin, Celsius>(Celsius temp) noexcept
+        auto convert<Kelvin, Celsius>(Celsius temp) noexcept -> Kelvin
         {
-            return Kelvin{(*temp) + 273.15};
+            return Kelvin{(*temp) - absolute_zero};
         }
 
         template <>
-        Celsius convert<Celsius, Kelvin>(Kelvin temp) noexcept
+        auto convert<Celsius, Kelvin>(Kelvin temp) noexcept -> Celsius
         {
-            return Celsius{(*temp) - 273.15};
+            return Celsius{(*temp) + absolute_zero};
         }
 
         template <>
-        Celsius convert<Celsius, Fahrenheit>(Fahrenheit temp) noexcept
+        auto convert<Celsius, Fahrenheit>(Fahrenheit temp) noexcept -> Celsius
         {
-            return Celsius{((*temp) - 32) / 1.8};
+            return Celsius{((*temp) - celsius_fahrenheit_const) /
+                           celsius_fahrenheit_ratio};
         }
 
         template <>
-        Fahrenheit convert<Fahrenheit, Celsius>(Celsius temp) noexcept
+        auto convert<Fahrenheit, Celsius>(Celsius temp) noexcept -> Fahrenheit
         {
-            return Fahrenheit{(*temp) * 1.8 + 32};
+            return Fahrenheit{(*temp) * celsius_fahrenheit_ratio +
+                              celsius_fahrenheit_const};
         }
 
         template <>
-        Fahrenheit convert<Fahrenheit, Kelvin>(Kelvin temp) noexcept
+        auto convert<Fahrenheit, Kelvin>(Kelvin temp) noexcept -> Fahrenheit
         {
             return convert<Fahrenheit>(convert<Celsius>(temp));
         }
 
         template <>
-        Kelvin convert<Kelvin, Fahrenheit>(Fahrenheit temp) noexcept
+        auto convert<Kelvin, Fahrenheit>(Fahrenheit temp) noexcept -> Kelvin
         {
             return convert<Kelvin>(convert<Celsius>(temp));
         }
     } // namespace detail
 
     template <typename TO, typename FROM>
-    TO convert(FROM temp) noexcept
+    auto convert(FROM temp) noexcept -> TO
     {
         if constexpr(std::is_same<TO, FROM>::value)
         {
@@ -88,11 +82,13 @@ namespace
     }
 } // namespace
 
-int main(int argc, char ** argv)
+int main(int argc, char ** argv) // NOLINT(modernize-use-trailing-return-type)
 {
     for(auto i = 1; i < argc; ++i)
     {
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         auto num = argv[i] + 1;
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         switch(argv[i][0])
         {
         case 'c':
