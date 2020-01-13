@@ -11,6 +11,13 @@ namespace
     using Foo = btshn::Orderable<int, FooTag>;
 
     BTSHN_MAKE_ORDERABLE(int, Bar);
+
+    static_assert(!std::is_same<Foo, Bar>::value,
+                  "Foo and Bar shouldn't be the same type");
+    static_assert(!std::is_convertible<Foo, Bar>::value,
+                  "Foo shouldn't be implicitly convertable to Bar");
+    static_assert(!std::is_convertible<Bar, Foo>::value,
+                  "Bar shouldn't be implicitly convertable to Foo");
 } // namespace
 
 TEST(Orderable, less) // NOLINT
