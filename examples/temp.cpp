@@ -61,7 +61,10 @@ namespace
     template <typename TO, typename FROM>
     auto convert(FROM temp) noexcept -> TO
     {
-        if constexpr(std::is_same<TO, FROM>::value)
+        // clang-tidy picks this up as a false positive, so mask the warning
+        if constexpr(
+            std::is_same<TO, FROM>::
+                value) // NOLINTNEXTLINE(hicpp-braces-around-statements)
         {
             return temp;
         }
@@ -74,7 +77,7 @@ namespace
     template <typename TEMP>
     void print(char const * num)
     {
-        TEMP const input{std::atof(num)};
+        TEMP const input{std::strtod(num, nullptr)};
 
         std::cout << *(convert<Kelvin>(input)) << "K\t"
                   << *(convert<Celsius>(input)) << "C\t"
