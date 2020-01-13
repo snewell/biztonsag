@@ -19,7 +19,7 @@ namespace
     BTSHN_MAKE_COMPARABLE(int, Baz);
 } // namespace
 
-TEST(Comparable, ctor)
+TEST(Comparable, ctor) // NOLINT
 {
     Foo f{0};
 
@@ -27,7 +27,7 @@ TEST(Comparable, ctor)
     ASSERT_EQ(0, *f);
 }
 
-TEST(Comparable, equal)
+TEST(Comparable, equal) // NOLINT
 {
     Foo f1{0};
     Foo f2{0};
@@ -35,7 +35,7 @@ TEST(Comparable, equal)
     ASSERT_EQ(f1, f2);
 }
 
-TEST(Comparable, not_equal)
+TEST(Comparable, not_equal) // NOLINT
 {
     Foo f1{0};
     Foo f2{1};
@@ -43,13 +43,13 @@ TEST(Comparable, not_equal)
     ASSERT_NE(f1, f2);
 }
 
-TEST(ComparableMacro, compiles)
+TEST(ComparableMacro, compiles) // NOLINT
 {
     Baz b{0};
 }
 
 #if 0
-TEST(Comparable, invalid_compare)
+TEST(Comparable, invalid_compare) // NOLINT
 {
     Foo f{0};
     Bar b{0};

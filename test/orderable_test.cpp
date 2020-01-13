@@ -13,7 +13,7 @@ namespace
     BTSHN_MAKE_ORDERABLE(int, Bar);
 } // namespace
 
-TEST(Orderable, less)
+TEST(Orderable, less) // NOLINT
 {
     Foo f1{0};
     Foo f2{1};
@@ -21,7 +21,7 @@ TEST(Orderable, less)
     ASSERT_LT(f1, f2);
 }
 
-TEST(Orderable, greater)
+TEST(Orderable, greater) // NOLINT
 {
     Foo f1{0};
     Foo f2{1};
@@ -29,7 +29,7 @@ TEST(Orderable, greater)
     ASSERT_GT(f2, f1);
 }
 
-TEST(Orderable, less_equal)
+TEST(Orderable, less_equal) // NOLINT
 {
     Foo f1{0};
     Foo f2{1};
@@ -38,7 +38,7 @@ TEST(Orderable, less_equal)
     ASSERT_LE(f1, f1);
 }
 
-TEST(Orderable, greater_equal)
+TEST(Orderable, greater_equal) // NOLINT
 {
     Foo f1{0};
     Foo f2{1};
@@ -47,7 +47,7 @@ TEST(Orderable, greater_equal)
     ASSERT_GE(f2, f2);
 }
 
-TEST(OrderableMacro, compiles)
+TEST(OrderableMacro, compiles) // NOLINT
 {
     Bar b{0};
 }
