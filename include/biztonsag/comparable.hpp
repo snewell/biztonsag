@@ -43,9 +43,9 @@ namespace btshn
 
         constexpr explicit operator T const &() const noexcept;
 
-        constexpr T & operator*() noexcept;
+        constexpr auto operator*() noexcept -> T &;
 
-        constexpr T const & operator*() const noexcept;
+        constexpr auto operator*() const noexcept -> T const &;
 
         constexpr auto operator-> () noexcept -> T *;
 
@@ -91,13 +91,13 @@ namespace btshn
     }
 
     template <typename T, typename TAG>
-    constexpr T & Comparable<T, TAG>::operator*() noexcept
+    constexpr auto Comparable<T, TAG>::operator*() noexcept -> T &
     {
         return m_value;
     }
 
     template <typename T, typename TAG>
-    constexpr T const & Comparable<T, TAG>::operator*() const noexcept
+    constexpr auto Comparable<T, TAG>::operator*() const noexcept -> T const &
     {
         return m_value;
     }
