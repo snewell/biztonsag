@@ -1,5 +1,7 @@
 #include <biztonsag/orderable.hpp>
 
+#include <vector>
+
 #include <gtest/gtest.h>
 
 namespace

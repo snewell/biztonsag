@@ -44,6 +44,27 @@ namespace btshn
                           "Extra memory requirements");
         }
 
+        template <typename... ARGS>
+        constexpr explicit Comparable(ARGS &&... args) noexcept(
+            std::is_nothrow_constructible<T, ARGS...>::value)
+          : m_value(std::forward<ARGS>(args)...)
+        {
+            static_assert(sizeof(Comparable<T, TAG>) == sizeof(T),
+                          "Extra memory requirements");
+        }
+
+        template <typename U,
+                  std::enable_if_t<
+                      std::is_constructible<T, std::initializer_list<U>>::value,
+                      int> = 1>
+        constexpr explicit Comparable(std::initializer_list<U> list) noexcept(
+            std::is_nothrow_constructible<T, std::initializer_list<U>>::value)
+          : m_value{std::forward<std::initializer_list<U>>(list)}
+        {
+            static_assert(sizeof(Comparable<T, TAG>) == sizeof(T),
+                          "Extra memory requirements");
+        }
+
         constexpr explicit operator T &() noexcept
         {
             return m_value;
