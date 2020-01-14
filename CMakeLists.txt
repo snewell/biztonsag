@@ -105,6 +105,7 @@ add_subdirectory(test)
 add_headers(
     comparable.hpp
     orderable.hpp
+    wrapped.hpp
 )
 
 if(BIZTONSAG_BUILD_DOCS)

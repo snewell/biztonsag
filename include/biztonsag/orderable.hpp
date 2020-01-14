@@ -30,6 +30,7 @@ namespace btshn
     template <typename T, typename TAG>
     class Orderable : public Comparable<T, TAG>
     {
+    public:
         using Comparable<T, TAG>::Comparable;
     };
 
