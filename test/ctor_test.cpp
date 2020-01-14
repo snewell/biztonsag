@@ -12,22 +12,22 @@ namespace
     BTSHN_MAKE_COMPARABLE(std::vector<int>, Ints);
 } // namespace
 
-TEST(Constructor, no_args)
+TEST(Constructor, no_args) // NOLINT
 {
     Name n;
 
     ASSERT_EQ(0, n->length());
 }
 
-TEST(Constructor, forwarding)
+TEST(Constructor, forwarding) // NOLINT
 {
-    Name n{"Hello", 4};
+    Name n{static_cast<char const *>("Hello"), 4};
 
     ASSERT_EQ(4, n->size());
     ASSERT_EQ("Hell", (*n));
 }
 
-TEST(Constructor, initializer_list)
+TEST(Constructor, initializer_list) // NOLINT
 {
     Ints i{0, 1, 2};
 
@@ -37,9 +37,10 @@ TEST(Constructor, initializer_list)
     ASSERT_EQ(2, i[2]);
 }
 
-TEST(Constructor, non_initializer_list)
+TEST(Constructor, non_initializer_list) // NOLINT
 {
-    Ints i(10);
+    auto const size = 10;
+    Ints i(size);
 
-    ASSERT_EQ(10, i->size());
+    ASSERT_EQ(size, i->size());
 }

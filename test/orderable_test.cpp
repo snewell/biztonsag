@@ -59,4 +59,5 @@ TEST(Orderable, greater_equal) // NOLINT
 TEST(OrderableMacro, compiles) // NOLINT
 {
     Bar b{0};
+    (void)b;
 }

@@ -57,7 +57,7 @@ namespace btshn
                   std::enable_if_t<
                       std::is_constructible<T, std::initializer_list<U>>::value,
                       int> = 1>
-        constexpr explicit Comparable(std::initializer_list<U> list) noexcept(
+        constexpr Comparable(std::initializer_list<U> list) noexcept(
             std::is_nothrow_constructible<T, std::initializer_list<U>>::value)
           : m_value{std::forward<std::initializer_list<U>>(list)}
         {
