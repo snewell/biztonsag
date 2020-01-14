@@ -32,9 +32,9 @@ TEST(Constructor, initializer_list)
     Ints i{0, 1, 2};
 
     ASSERT_EQ(3, i->size());
-    ASSERT_EQ(0, i->at(0));
-    ASSERT_EQ(1, i->at(1));
-    ASSERT_EQ(2, i->at(2));
+    ASSERT_EQ(0, i[0]);
+    ASSERT_EQ(1, i[1]);
+    ASSERT_EQ(2, i[2]);
 }
 
 TEST(Constructor, non_initializer_list)

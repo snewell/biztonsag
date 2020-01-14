@@ -95,6 +95,20 @@ namespace btshn
             return &m_value;
         }
 
+        // TODO: figure out how to noexcept this
+        template <typename INDEX>
+        constexpr auto operator[](INDEX && i)
+        {
+            return m_value[std::forward<INDEX>(i)];
+        }
+
+        // TODO: figure out how to noexcept this
+        template <typename INDEX>
+        constexpr auto operator[](INDEX && i) const
+        {
+            return m_value[std::forward<INDEX>(i)];
+        }
+
     private:
         T m_value;
     };
