@@ -46,6 +46,7 @@ TEST(Comparable, not_equal) // NOLINT
 TEST(ComparableMacro, compiles) // NOLINT
 {
     Baz b{0};
+    (void)b;
 }
 
 #if 0
