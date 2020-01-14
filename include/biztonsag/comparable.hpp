@@ -66,12 +66,12 @@ namespace btshn
 
         constexpr auto operator-> () noexcept -> T *
         {
-            return m_value;
+            return &m_value;
         }
 
         constexpr auto operator-> () const noexcept -> T const *
         {
-            return m_value;
+            return &m_value;
         }
 
     private:
