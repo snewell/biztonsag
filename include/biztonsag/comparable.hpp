@@ -37,19 +37,42 @@ namespace btshn
         using tag_type = TAG;
 
         constexpr explicit Comparable(T value) noexcept(
-            std::is_nothrow_move_constructible<T>::value);
+            std::is_nothrow_move_constructible<T>::value)
+          : m_value{std::move(value)}
+        {
+            static_assert(sizeof(Comparable<T, TAG>) == sizeof(T),
+                          "Extra memory requirements");
+        }
 
-        constexpr explicit operator T &() noexcept;
+        constexpr explicit operator T &() noexcept
+        {
+            return m_value;
+        }
 
-        constexpr explicit operator T const &() const noexcept;
+        constexpr explicit operator T const &() const noexcept
+        {
+            return m_value;
+        }
 
-        constexpr auto operator*() noexcept -> T &;
+        constexpr auto operator*() noexcept -> T &
+        {
+            return m_value;
+        }
 
-        constexpr auto operator*() const noexcept -> T const &;
+        constexpr auto operator*() const noexcept -> T const &
+        {
+            return m_value;
+        }
 
-        constexpr auto operator-> () noexcept -> T *;
+        constexpr auto operator-> () noexcept -> T *
+        {
+            return m_value;
+        }
 
-        constexpr auto operator-> () const noexcept -> T const *;
+        constexpr auto operator-> () const noexcept -> T const *
+        {
+            return m_value;
+        }
 
     private:
         T m_value;
@@ -67,51 +90,6 @@ namespace btshn
                               Comparable<T, TAG> const & rhs) noexcept
     {
         return (*lhs) != (*rhs);
-    }
-
-    template <typename T, typename TAG>
-    constexpr Comparable<T, TAG>::Comparable(T value) noexcept(
-        std::is_nothrow_move_constructible<T>::value)
-      : m_value{std::move(value)}
-    {
-        static_assert(sizeof(Comparable<T, TAG>) == sizeof(T),
-                      "Extra memory requirements");
-    }
-
-    template <typename T, typename TAG>
-    constexpr Comparable<T, TAG>::operator T &() noexcept
-    {
-        return m_value;
-    }
-
-    template <typename T, typename TAG>
-    constexpr Comparable<T, TAG>::operator T const &() const noexcept
-    {
-        return m_value;
-    }
-
-    template <typename T, typename TAG>
-    constexpr auto Comparable<T, TAG>::operator*() noexcept -> T &
-    {
-        return m_value;
-    }
-
-    template <typename T, typename TAG>
-    constexpr auto Comparable<T, TAG>::operator*() const noexcept -> T const &
-    {
-        return m_value;
-    }
-
-    template <typename T, typename TAG>
-    constexpr auto Comparable<T, TAG>::operator-> () noexcept -> T *
-    {
-        return m_value;
-    }
-
-    template <typename T, typename TAG>
-    constexpr auto Comparable<T, TAG>::operator-> () const noexcept -> T const *
-    {
-        return m_value;
     }
 } // namespace btshn
 
