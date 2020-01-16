@@ -104,6 +104,7 @@ add_subdirectory(test)
 
 add_headers(
     comparable.hpp
+    create_macro.hpp
     orderable.hpp
     wrapped.hpp
 )

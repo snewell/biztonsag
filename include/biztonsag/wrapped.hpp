@@ -4,27 +4,10 @@
 #include <type_traits>
 #include <utility>
 
-// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define BTSHN_MAKE_WRAPPED_INNER2(t, tag_name, type_name)                      \
-    namespace detail                                                           \
-    {                                                                          \
-        namespace auto_btshn                                                   \
-        {                                                                      \
-            struct tag_name                                                    \
-            {                                                                  \
-            };                                                                 \
-        }                                                                      \
-    }                                                                          \
-    /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                           \
-    using type_name = ::btshn::Wrapped<t, detail::auto_btshn::tag_name>
+#include <biztonsag/create_macro.hpp>
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define BTSHN_MAKE_WRAPPED_INNER1(t, tag_first, tag_second, type_name)         \
-    BTSHN_MAKE_WRAPPED_INNER2(t, tag_first##tag_second, type_name)
-
-// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define BTSHN_MAKE_WRAPPED(t, name)                                            \
-    BTSHN_MAKE_WRAPPED_INNER1(t, name, Tag, name)
+#define BTSHN_MAKE_WRAPPED(t, name) BTSHN_MAKE_TYPE(Wrapped, t, name)
 
 namespace btshn
 {
