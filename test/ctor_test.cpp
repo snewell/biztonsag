@@ -1,4 +1,4 @@
-#include <biztonsag/comparable.hpp>
+#include <biztonsag/wrapped.hpp>
 
 #include <string>
 #include <vector>
@@ -7,9 +7,9 @@
 
 namespace
 {
-    BTSHN_MAKE_COMPARABLE(std::string, Name);
+    BTSHN_MAKE_WRAPPED(std::string, Name);
 
-    BTSHN_MAKE_COMPARABLE(std::vector<int>, Ints);
+    BTSHN_MAKE_WRAPPED(std::vector<int>, Ints);
 } // namespace
 
 TEST(Constructor, no_args) // NOLINT
