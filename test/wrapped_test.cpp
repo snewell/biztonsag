@@ -20,9 +20,12 @@ namespace
                   "Foo shouldn't be implicitly convertable to Bar");
     static_assert(!std::is_convertible<Bar, Foo>::value,
                   "Bar shouldn't be implicitly convertable to Foo");
+
+    using IntPairHelper = std::pair<int, int>;
+    BTSHN_MAKE_WRAPPED(IntPairHelper, IntPair);
 } // namespace
 
-TEST(Wrapped, access) // NOLINT
+TEST(Wrapped, access_star) // NOLINT
 {
     Foo f{0};
     ASSERT_EQ(0, *f);
@@ -31,8 +34,26 @@ TEST(Wrapped, access) // NOLINT
     ASSERT_EQ(10, *f);
 }
 
-TEST(Wrapped, const_access) // NOLINT
+TEST(Wrapped, const_access_star) // NOLINT
 {
     Foo const f{0};
     ASSERT_EQ(0, *f);
+}
+
+TEST(Wrapped, access_arrow) // NOLINT
+{
+    IntPair ip{std::make_pair(10, 20)};
+    ASSERT_EQ(10, ip->first);
+    ASSERT_EQ(20, ip->second);
+
+    *ip = std::make_pair(20, 10);
+    ASSERT_EQ(10, ip->first);
+    ASSERT_EQ(20, ip->second);
+}
+
+TEST(Wrapped, const_access_arrow) // NOLINT
+{
+    IntPair ip{std::make_pair(10, 20)};
+    ASSERT_EQ(10, ip->first);
+    ASSERT_EQ(20, ip->second);
 }
