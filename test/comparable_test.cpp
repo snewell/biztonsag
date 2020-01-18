@@ -4,19 +4,13 @@
 
 namespace
 {
-    struct BarTag
-    {
-    };
-
     struct FooTag
     {
     };
 
-    using Bar = btshn::Comparable<int, BarTag>;
-
     using Foo = btshn::Comparable<int, FooTag>;
 
-    BTSHN_MAKE_COMPARABLE(int, Baz);
+    BTSHN_MAKE_COMPARABLE(int, Bar);
 } // namespace
 
 TEST(Comparable, ctor) // NOLINT
@@ -41,12 +35,6 @@ TEST(Comparable, not_equal) // NOLINT
     Foo f2{1};
 
     ASSERT_NE(f1, f2);
-}
-
-TEST(ComparableMacro, compiles) // NOLINT
-{
-    Baz b{0};
-    (void)b;
 }
 
 #if 0
