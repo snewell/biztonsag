@@ -1,19 +1,25 @@
 #include <cstdlib>
 #include <iostream>
+#include <random>
 #include <type_traits>
 
 #include <biztonsag/comparable.hpp>
+#include <biztonsag/orderable.hpp>
 
 namespace
 {
     BTSHN_MAKE_COMPARABLE(double, Fahrenheit);
     BTSHN_MAKE_COMPARABLE(double, Celsius);
-    BTSHN_MAKE_COMPARABLE(double, Kelvin);
+
+    BTSHN_MAKE_ORDERABLE(double, Kelvin);
 
     constexpr auto absolute_zero = -273.15;
     constexpr auto celsius_fahrenheit_const = 32;
     constexpr auto celsius_fahrenheit_ratio = 1.8;
 
+    // All the conversions between the temperatures are here.  These are
+    // straight algebra, but we need to be a bit verbose due to the explicit
+    // constructors used by biztonsag.
     namespace detail
     {
         template <typename TO, typename FROM>
@@ -46,6 +52,7 @@ namespace
         }
 
         template <>
+        // NOLINTNEXTLINE(clang-diagnostic-unused-function)
         auto convert<Fahrenheit, Kelvin>(Kelvin temp) noexcept -> Fahrenheit
         {
             return convert<Fahrenheit>(convert<Celsius>(temp));
@@ -70,46 +77,81 @@ namespace
         }
         else
         {
-            return detail::convert<TO>(temp);
+            return detail::convert<TO, FROM>(temp);
         }
     }
 
-    template <typename TEMP>
-    void print(char const * num)
+    // This is some type that represents a temperature sensor.  We'll assume for
+    // the sake of simplicity that all the sensors we have give their
+    // temperature in Celsius.
+    struct Sensor
     {
-        TEMP const input{std::strtod(num, nullptr)};
+        Celsius m_current;
+    };
 
-        std::cout << *(convert<Kelvin>(input)) << "K\t"
-                  << *(convert<Celsius>(input)) << "C\t"
-                  << *(convert<Fahrenheit>(input)) << "F\n";
+    // Our thermostats are designed for America, so they deal with temperature
+    // in terms of Fahrenheit.
+    struct Thermostat
+    {
+        Fahrenheit m_desired;
+    };
+
+    void control(Sensor const & s, Thermostat const & t)
+    {
+        // The idea here is to simulate some kind of controller for the
+        // heating/AC.  To add an extra example of type-safety, we'll assume the
+        // controller operates in Kelvin.
+        auto const sensor_temp = convert<Kelvin>(s.m_current);
+        auto const desired_temp = convert<Kelvin>(t.m_desired);
+
+        // Now that we have the proper types, we figure out whether to run the
+        // heater or the air conditioning.  Note that becuase Fahrenheit and
+        // Celsius are Comparable, the next line won't compile; Kelvin instances
+        // work fine since Kelvin is an Orderable.
+        if(sensor_temp < desired_temp)
+        {
+            std::cout << "Room is cold; heating "
+                      << *Fahrenheit{convert<Kelvin>(
+                             Kelvin{*desired_temp - *sensor_temp})}
+                      << "F\n";
+        }
+        else
+        {
+            std::cout << "Room is warm; cooling "
+                      << *Fahrenheit{convert<Kelvin>(
+                             Kelvin{*sensor_temp - *desired_temp})}
+                      << "F\n";
+        }
+
+        // We could expand this to be multithreaded or or whwatever and keep
+        // changing the sensor by some random value until it's close enough to
+        // the desired temperature that we halt everything; this is left as an
+        // exercise for somebody else.
     }
 } // namespace
 
 int main(int argc, char ** argv) // NOLINT(modernize-use-trailing-return-type)
 {
-    for(auto i = 1; i < argc; ++i)
-    {
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        auto num = argv[i] + 1;
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-        switch(argv[i][0])
+    Fahrenheit const desired{[argc, argv]() {
+        constexpr auto default_temperature = 68.0;
+        if(argc > 1)
         {
-        case 'c':
-        case 'C':
-            print<Celsius>(num);
-            break;
-
-        case 'f':
-        case 'F':
-            print<Fahrenheit>(num);
-            break;
-
-        case 'k':
-        case 'K':
-            print<Kelvin>(num);
-            break;
+            return std::strtod(
+                argv[1], // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+                nullptr);
         }
-    }
+        return default_temperature;
+    }()};
+
+    std::default_random_engine re{std::random_device{}()};
+    std::normal_distribution<double> dist{
+        *desired, 5.0}; // NOLINT(cppcoreguidelines-avoid-magic-numbers,
+                        //        readability-magic-numbers)
+
+    Sensor s{convert<Celsius>(Fahrenheit{dist(re)})};
+    Thermostat t{desired};
+
+    control(s, t);
 
     return 0;
 }
