@@ -4,7 +4,8 @@
 #include <biztonsag/wrapped.hpp>
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define BTSHN_MAKE_COMPARABLE(t, name) BTSHN_MAKE_TYPE(Comparable, t, name)
+#define BTSHN_MAKE_COMPARABLE(name, ...)                                       \
+    BTSHN_MAKE_TYPE(Comparable, name, __VA_ARGS__)
 
 namespace btshn
 {

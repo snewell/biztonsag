@@ -4,7 +4,8 @@
 #include <biztonsag/comparable.hpp>
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define BTSHN_MAKE_ORDERABLE(t, name) BTSHN_MAKE_TYPE(Orderable, t, name)
+#define BTSHN_MAKE_ORDERABLE(name, ...)                                        \
+    BTSHN_MAKE_TYPE(Orderable, name, __VA_ARGS__)
 
 namespace btshn
 {

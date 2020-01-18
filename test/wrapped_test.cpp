@@ -12,7 +12,7 @@ namespace
 
     using Foo = btshn::Wrapped<int, FooTag>;
 
-    BTSHN_MAKE_WRAPPED(int, Bar);
+    BTSHN_MAKE_WRAPPED(Bar, int);
 
     static_assert(!std::is_same<Foo, Bar>::value,
                   "Foo and Bar shouldn't be the same type");
@@ -21,8 +21,7 @@ namespace
     static_assert(!std::is_convertible<Bar, Foo>::value,
                   "Bar shouldn't be implicitly convertable to Foo");
 
-    using IntPairHelper = std::pair<int, int>;
-    BTSHN_MAKE_WRAPPED(IntPairHelper, IntPair);
+    BTSHN_MAKE_WRAPPED(IntPair, std::pair<int, int>);
 } // namespace
 
 TEST(Wrapped, access_star) // NOLINT
@@ -47,8 +46,8 @@ TEST(Wrapped, access_arrow) // NOLINT
     ASSERT_EQ(20, ip->second);
 
     *ip = std::make_pair(20, 10);
-    ASSERT_EQ(10, ip->first);
-    ASSERT_EQ(20, ip->second);
+    ASSERT_EQ(20, ip->first);
+    ASSERT_EQ(10, ip->second);
 }
 
 TEST(Wrapped, const_access_arrow) // NOLINT

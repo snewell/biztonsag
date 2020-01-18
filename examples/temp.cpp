@@ -8,10 +8,10 @@
 
 namespace
 {
-    BTSHN_MAKE_COMPARABLE(double, Fahrenheit);
-    BTSHN_MAKE_COMPARABLE(double, Celsius);
+    BTSHN_MAKE_COMPARABLE(Fahrenheit, double);
+    BTSHN_MAKE_COMPARABLE(Celsius, double);
 
-    BTSHN_MAKE_ORDERABLE(double, Kelvin);
+    BTSHN_MAKE_ORDERABLE(Kelvin, double);
 
     constexpr auto absolute_zero = -273.15;
     constexpr auto celsius_fahrenheit_const = 32;

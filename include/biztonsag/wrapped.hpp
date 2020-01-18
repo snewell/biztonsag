@@ -7,7 +7,8 @@
 #include <biztonsag/create_macro.hpp>
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define BTSHN_MAKE_WRAPPED(t, name) BTSHN_MAKE_TYPE(Wrapped, t, name)
+#define BTSHN_MAKE_WRAPPED(name, ...)                                          \
+    BTSHN_MAKE_TYPE(Wrapped, name, __VA_ARGS__)
 
 namespace btshn
 {

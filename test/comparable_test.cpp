@@ -10,7 +10,7 @@ namespace
 
     using Foo = btshn::Comparable<int, FooTag>;
 
-    BTSHN_MAKE_COMPARABLE(int, Bar);
+    BTSHN_MAKE_COMPARABLE(Bar, int);
 } // namespace
 
 TEST(Comparable, ctor) // NOLINT

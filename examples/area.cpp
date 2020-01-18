@@ -4,9 +4,9 @@
 
 namespace
 {
-    BTSHN_MAKE_WRAPPED(int, Width);
-    BTSHN_MAKE_WRAPPED(int, Height);
-    BTSHN_MAKE_WRAPPED(int, Area);
+    BTSHN_MAKE_WRAPPED(Width, int);
+    BTSHN_MAKE_WRAPPED(Height, int);
+    BTSHN_MAKE_WRAPPED(Area, int);
 
     auto operator*(Width lhs, Height rhs)
     {

@@ -7,8 +7,8 @@
 
 namespace
 {
-    BTSHN_MAKE_ORDERABLE(std::string, SafeString);
-    BTSHN_MAKE_ORDERABLE(std::string, UnsafeString);
+    BTSHN_MAKE_ORDERABLE(SafeString, std::string);
+    BTSHN_MAKE_ORDERABLE(UnsafeString, std::string);
 
     auto encode(UnsafeString const & us)
     {

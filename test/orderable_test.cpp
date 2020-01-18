@@ -12,7 +12,7 @@ namespace
 
     using Foo = btshn::Orderable<int, FooTag>;
 
-    BTSHN_MAKE_ORDERABLE(int, Bar);
+    BTSHN_MAKE_ORDERABLE(Bar, int);
 
     static_assert(!std::is_same<Foo, Bar>::value,
                   "Foo and Bar shouldn't be the same type");

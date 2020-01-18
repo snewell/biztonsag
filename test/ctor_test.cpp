@@ -7,9 +7,9 @@
 
 namespace
 {
-    BTSHN_MAKE_WRAPPED(std::string, Name);
+    BTSHN_MAKE_WRAPPED(Name, std::string);
 
-    BTSHN_MAKE_WRAPPED(std::vector<int>, Ints);
+    BTSHN_MAKE_WRAPPED(Ints, std::vector<int>);
 } // namespace
 
 TEST(Constructor, no_args) // NOLINT
