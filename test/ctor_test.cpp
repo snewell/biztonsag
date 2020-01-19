@@ -110,3 +110,22 @@ TEST(Constructor, multi_move)
     Complex c{ComplexBase{}};
     ASSERT_EQ(ConstructorType::move_constructor, c->m_type);
 }
+
+namespace
+{
+    struct ThrowingObjectBase
+    {
+        ThrowingObjectBase() {}
+    };
+    BTSHN_MAKE_WRAPPED(ThrowingObject, ThrowingObjectBase);
+    static_assert(!std::is_nothrow_default_constructible<ThrowingObject>::value,
+                  "noexcept not propagating properly");
+
+    struct NoexceptBase
+    {
+        NoexceptBase() noexcept {}
+    };
+    BTSHN_MAKE_WRAPPED(Noexcept, NoexceptBase);
+    static_assert(std::is_nothrow_default_constructible<Noexcept>::value,
+                  "noexcept not propagating properly");
+} // namespace
