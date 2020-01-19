@@ -49,16 +49,6 @@ namespace btshn
                           "Extra memory requirements");
         }
 
-        constexpr explicit operator T &() noexcept
-        {
-            return m_value;
-        }
-
-        constexpr explicit operator T const &() const noexcept
-        {
-            return m_value;
-        }
-
         constexpr auto operator*() noexcept -> T &
         {
             return m_value;
