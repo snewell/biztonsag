@@ -11,7 +11,7 @@ namespace
     BTSHN_MAKE_MIXIN(Width, WidthBase, btshn::Plus<Width, int>);
 } // namespace
 
-TEST(Plus, simple_plus)
+TEST(Plus, simple_plus) // NOLINT
 {
     Width const orig{0};
     Width const expected{10};
@@ -20,7 +20,7 @@ TEST(Plus, simple_plus)
     ASSERT_EQ(expected, sum);
 }
 
-TEST(Plus, simple_plus_equals)
+TEST(Plus, simple_plus_equals) // NOLINT
 {
     Width const expected{10};
     Width w{0};
