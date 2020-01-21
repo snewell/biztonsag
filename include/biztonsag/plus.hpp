@@ -6,9 +6,8 @@
 namespace btshn
 {
     template <typename BASE, typename OTHER>
-    class Plus
+    struct Plus
     {
-    public:
         auto operator+(OTHER && other) const -> BASE
         {
             return BASE{*(*reinterpret_cast<BASE const *>(this)) +
