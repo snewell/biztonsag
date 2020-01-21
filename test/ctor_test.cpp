@@ -57,31 +57,40 @@ namespace
 
     struct ComplexBase
     {
-        ComplexBase()
+        ComplexBase() noexcept
           : m_type{ConstructorType::default_constructor}
         {
         }
 
-        ComplexBase(int a, int b)
+        ComplexBase(int a, int b) noexcept
           : m_type{ConstructorType::args_constructor}
         {
             (void)a;
             (void)b;
         }
 
-        ComplexBase(std::initializer_list<int> init_list)
+        ComplexBase(std::initializer_list<int> init_list) noexcept
           : m_type{ConstructorType::initializer_list_constructor}
         {
             (void)init_list;
         }
 
-        ComplexBase(ComplexBase && c)
+        ComplexBase(ComplexBase && c) noexcept
           : m_type{ConstructorType::move_constructor}
         {
             (void)c;
         }
 
-        ConstructorType const m_type;
+        ComplexBase(ComplexBase const & other) noexcept = default;
+
+        ~ComplexBase() noexcept = default;
+
+        auto operator=(ComplexBase const & other) -> ComplexBase & = delete;
+
+        auto operator=(ComplexBase && other) noexcept -> ComplexBase & = delete;
+
+        ConstructorType const
+            m_type; // NOLINT(misc-non-private-member-variables-in-classes)
     };
 
     BTSHN_MAKE_WRAPPED(Complex, ComplexBase);
@@ -115,7 +124,7 @@ namespace
 {
     struct ThrowingObjectBase
     {
-        ThrowingObjectBase() {}
+        ThrowingObjectBase() noexcept(false) = default;
     };
     BTSHN_MAKE_WRAPPED(ThrowingObject, ThrowingObjectBase);
     static_assert(!std::is_nothrow_default_constructible<ThrowingObject>::value,
@@ -123,7 +132,7 @@ namespace
 
     struct NoexceptBase
     {
-        NoexceptBase() noexcept {}
+        NoexceptBase() noexcept = default;
     };
     BTSHN_MAKE_WRAPPED(Noexcept, NoexceptBase);
     static_assert(std::is_nothrow_default_constructible<Noexcept>::value,
