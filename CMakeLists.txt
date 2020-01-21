@@ -127,6 +127,10 @@ if(BIZTONSAG_BUILD_DOCS)
             COMMAND "${DOXYGEN}"
             WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
         )
+        install(DIRECTORY
+                    "${CMAKE_CURRENT_BINARY_DIR}/doc/html"
+            DESTINATION ${CMAKE_INSTALL_DOCDIR}
+        )
     else()
         message(WARNING "Couldn't find doxygen, disabling documentation")
     endif()
