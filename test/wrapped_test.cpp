@@ -29,8 +29,9 @@ TEST(Wrapped, access_star) // NOLINT
     Foo f{0};
     ASSERT_EQ(0, *f);
 
-    *f = 10;
-    ASSERT_EQ(10, *f);
+    auto const next = 10;
+    *f = next;
+    ASSERT_EQ(next, *f);
 }
 
 TEST(Wrapped, const_access_star) // NOLINT
@@ -41,18 +42,22 @@ TEST(Wrapped, const_access_star) // NOLINT
 
 TEST(Wrapped, access_arrow) // NOLINT
 {
-    IntPair ip{std::make_pair(10, 20)};
-    ASSERT_EQ(10, ip->first);
-    ASSERT_EQ(20, ip->second);
+    auto const first = 10;
+    auto const second = 20;
+    IntPair ip{std::make_pair(first, second)};
+    ASSERT_EQ(first, ip->first);
+    ASSERT_EQ(second, ip->second);
 
-    *ip = std::make_pair(20, 10);
-    ASSERT_EQ(20, ip->first);
-    ASSERT_EQ(10, ip->second);
+    *ip = std::make_pair(second, first);
+    ASSERT_EQ(second, ip->first);
+    ASSERT_EQ(first, ip->second);
 }
 
 TEST(Wrapped, const_access_arrow) // NOLINT
 {
-    IntPair ip{std::make_pair(10, 20)};
-    ASSERT_EQ(10, ip->first);
-    ASSERT_EQ(20, ip->second);
+    auto const first = 10;
+    auto const second = 20;
+    IntPair ip{std::make_pair(first, second)};
+    ASSERT_EQ(first, ip->first);
+    ASSERT_EQ(second, ip->second);
 }
