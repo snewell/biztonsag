@@ -87,25 +87,25 @@ namespace
     BTSHN_MAKE_WRAPPED(Complex, ComplexBase);
 } // namespace
 
-TEST(Constructor, multi_default)
+TEST(Constructor, multi_default) // NOLINT
 {
     Complex c{};
     ASSERT_EQ(ConstructorType::default_constructor, c->m_type);
 }
 
-TEST(Constructor, multi_args)
+TEST(Constructor, multi_args) // NOLINT
 {
     Complex c(0, 0);
     ASSERT_EQ(ConstructorType::args_constructor, c->m_type);
 }
 
-TEST(Constructor, multi_initializer_list)
+TEST(Constructor, multi_initializer_list) // NOLINT
 {
     Complex c{0, 0};
     ASSERT_EQ(ConstructorType::initializer_list_constructor, c->m_type);
 }
 
-TEST(Constructor, multi_move)
+TEST(Constructor, multi_move) // NOLINT
 {
     Complex c{ComplexBase{}};
     ASSERT_EQ(ConstructorType::move_constructor, c->m_type);
