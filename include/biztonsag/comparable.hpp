@@ -10,9 +10,8 @@
 namespace btshn
 {
     template <typename T, typename TAG>
-    class Comparable : public Wrapped<T, TAG>
+    struct Comparable : Wrapped<T, TAG>
     {
-    public:
         using Wrapped<T, TAG>::Wrapped;
     };
 

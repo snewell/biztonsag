@@ -32,9 +32,8 @@ namespace btshn
      *          implicit conversions that Apps Hungarian tires to avoid
      */
     template <typename T, typename TAG>
-    class Wrapped
+    struct Wrapped
     {
-    public:
         /// \brief the type of wrapped data
         using value_type = T;
 
