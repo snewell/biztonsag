@@ -108,18 +108,19 @@ namespace
         // heater or the air conditioning.  Note that becuase Fahrenheit and
         // Celsius are Comparable, the next line won't compile; Kelvin instances
         // work fine since Kelvin is an Orderable.
+        std::cout << "Current = " << *sensor_temp
+                  << "\nDesired = " << *desired_temp << '\n';
+
+        auto const sensor_f = convert<Fahrenheit>(sensor_temp);
+        auto const desired_f = convert<Fahrenheit>(desired_temp);
         if(sensor_temp < desired_temp)
         {
-            std::cout << "Room is cold; heating "
-                      << *Fahrenheit{convert<Kelvin>(
-                             Kelvin{*desired_temp - *sensor_temp})}
+            std::cout << "Room is cold; heating " << *desired_f - *sensor_f
                       << "F\n";
         }
         else
         {
-            std::cout << "Room is warm; cooling "
-                      << *Fahrenheit{convert<Kelvin>(
-                             Kelvin{*sensor_temp - *desired_temp})}
+            std::cout << "Room is warm; cooling " << *sensor_f - *desired_f
                       << "F\n";
         }
 
