@@ -5,15 +5,17 @@
 
 namespace btshn
 {
-    template <typename BASE, typename OTHER>
+    template <typename BASE, typename OTHER, typename RESULT = BASE>
     struct Plus
     {
-        auto operator+(OTHER && other) const -> BASE
+        auto operator+(OTHER && other) const -> RESULT
         {
-            return BASE{*(*reinterpret_cast<BASE const *>(this)) +
-                        std::forward<OTHER>(other)};
+            return RESULT{*(*reinterpret_cast<BASE const *>(this)) +
+                          std::forward<OTHER>(other)};
         }
 
+        template <typename B = BASE, typename R = RESULT,
+                  typename std::enable_if_t<std::is_same<B, R>::value, int> = 0>
         auto operator+=(OTHER && other) -> BASE &
         {
             *(*reinterpret_cast<BASE *>(this)) += std::forward<OTHER>(other);
