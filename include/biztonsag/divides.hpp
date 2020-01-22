@@ -8,10 +8,9 @@ namespace btshn
     template <typename BASE, typename OTHER, typename RESULT = BASE>
     struct Divides
     {
-        auto operator/(OTHER && other) const -> RESULT
+        friend auto operator/(BASE const & lhs, OTHER && rhs) -> RESULT
         {
-            return RESULT{*(*reinterpret_cast<BASE const *>(this)) /
-                          std::forward<OTHER>(other)};
+            return RESULT{(*lhs) / std::forward<OTHER>(rhs)};
         }
 
         template <typename B = BASE, typename R = RESULT,
