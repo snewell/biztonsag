@@ -15,10 +15,10 @@ namespace btshn
 
         template <typename B = BASE, typename R = RESULT,
                   typename std::enable_if_t<std::is_same<B, R>::value, int> = 0>
-        auto operator-=(OTHER && other) -> BASE &
+        friend auto operator-=(BASE & lhs, OTHER && rhs) -> BASE &
         {
-            *(*reinterpret_cast<BASE *>(this)) -= std::forward<OTHER>(other);
-            return *reinterpret_cast<BASE *>(this);
+            *(lhs) -= std::forward<OTHER>(rhs);
+            return lhs;
         }
     };
 } // namespace btshn
