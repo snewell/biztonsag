@@ -8,7 +8,8 @@ namespace
 {
     BTSHN_MAKE_COMPARABLE(WidthBase, int);
 
-    BTSHN_MAKE_MIXIN(Width, WidthBase, btshn::Plus<Width, int>);
+    BTSHN_MAKE_MIXIN(Width, WidthBase, btshn::Plus<Width, int>,
+                     btshn::Plus<Width, unsigned int, WidthBase>);
     BTSHN_MAKE_MIXIN(Width2, WidthBase, btshn::Plus<Width2, int, Width>);
 } // namespace
 
@@ -17,6 +18,15 @@ TEST(Plus, simple_plus) // NOLINT
     Width const orig{0};
     Width const expected{10};
     auto sum = orig + 10;
+
+    ASSERT_EQ(expected, sum);
+}
+
+TEST(Plus, simple_plus_unsigned) // NOLINT
+{
+    Width const orig{0};
+    WidthBase const expected{10};
+    auto sum = orig + 10u;
 
     ASSERT_EQ(expected, sum);
 }
