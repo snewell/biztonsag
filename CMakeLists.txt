@@ -105,9 +105,12 @@ add_subdirectory(test)
 add_headers(
     comparable.hpp
     create_macro.hpp
+    divides.hpp
+    minus.hpp
     mixins.hpp
     orderable.hpp
     plus.hpp
+    times.hpp
     wrapped.hpp
 )
 

@@ -40,14 +40,3 @@ TEST(Plus, simple_plus_other) // NOLINT
 
     ASSERT_EQ(expected, sum);
 }
-
-#if 0
-TEST(Plus, simple_plus_equals_other) // NOLINT
-{
-    Width2 const expected{10};
-    Width2 w{0};
-    w += 10ul;
-
-    ASSERT_EQ(expected, w);
-}
-#endif
