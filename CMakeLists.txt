@@ -103,14 +103,11 @@ add_subdirectory(examples)
 add_subdirectory(test)
 
 add_headers(
+    arithmetic.hpp
     comparable.hpp
     create_macro.hpp
-    divides.hpp
-    minus.hpp
     mixins.hpp
     orderable.hpp
-    plus.hpp
-    times.hpp
     wrapped.hpp
 )
 

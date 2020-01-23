@@ -1,5 +1,5 @@
+#include <biztonsag/arithmetic.hpp>
 #include <biztonsag/comparable.hpp>
-#include <biztonsag/plus.hpp>
 
 #include <gtest/gtest.h>
 
