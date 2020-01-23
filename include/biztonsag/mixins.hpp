@@ -36,7 +36,7 @@ namespace detail
 #endif
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define BTSHN_MAKE_OP_HELPER(base, other, result, binary_op, assign_op)        \
+#define BTSHN_MAKE_OP_HELPER(base, other, result, binary_op)                   \
     MIXIN_CONSTEXPR auto operator binary_op(base const & lhs,                  \
                                             const other & rhs)                 \
         ->result                                                               \
@@ -45,9 +45,9 @@ namespace detail
             lhs, rhs, [](auto const & lhs, const auto & rhs) {                 \
                 return result{(*lhs)binary_op rhs};                            \
             });                                                                \
-    }                                                                          \
-    template <typename B = base, typename R = result,                          \
-              typename std::enable_if_t<std::is_same<B, R>::value, int> = 0>   \
+    }
+
+#define BTSHN_MAKE_ASSIGN_OP_HELPER(base, other, assign_op)                    \
     constexpr auto operator assign_op(base & lhs, other && rhs)->base &        \
     {                                                                          \
         *(lhs)assign_op std::forward<other>(rhs);                              \

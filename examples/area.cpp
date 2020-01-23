@@ -1,6 +1,7 @@
 #include <cassert>
 #include <iostream>
 
+#include <biztonsag/arithmetic.hpp>
 #include <biztonsag/comparable.hpp>
 #include <biztonsag/wrapped.hpp>
 
@@ -11,18 +12,9 @@ namespace
 
     BTSHN_MAKE_COMPARABLE(Area, int);
 
-    auto operator*(Width lhs, Height rhs)
-    {
-        return Area{(*lhs) * (*rhs)};
-    }
-
-    // This overload isn't used, but we can provide it since the math works
-    // either way.  If we were working with types where the order of operands
-    // matters, then we wouldn't provide both forms.
-    auto operator*(Height lhs, Width rhs)
-    {
-        return rhs * lhs;
-    }
+    // we can have biztonsag stamp out operator* automatically
+    BTSHN_MAKE_TIMES(Width, Height, Area)
+    BTSHN_MAKE_TIMES(Height, Width, Area)
 } // namespace
 
 int main() // NOLINT(modernize-use-trailing-return-type)
