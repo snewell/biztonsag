@@ -5,6 +5,7 @@
 #include <utility>
 
 #include <biztonsag/create_macro.hpp>
+#include <biztonsag/traits.hpp>
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_WRAPPED(name, ...)                                          \
@@ -122,6 +123,12 @@ namespace btshn
 
     private:
         T m_value;
+    };
+
+    template <typename T, typename TAG>
+    struct is_biztonsag_type<Wrapped<T, TAG>>
+    {
+        constexpr static bool value = true;
     };
 } // namespace btshn
 
