@@ -28,6 +28,12 @@ namespace btshn
     {
         return (*lhs) != (*rhs);
     }
+
+    template <typename T, typename TAG>
+    struct is_biztonsag_type<Comparable<T, TAG>>
+    {
+        constexpr static bool value = true;
+    };
 } // namespace btshn
 
 #endif // COMPARABLE_HPP_INCLUDED

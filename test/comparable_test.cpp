@@ -11,6 +11,11 @@ namespace
     using Foo = btshn::Comparable<int, FooTag>;
 
     BTSHN_MAKE_COMPARABLE(Bar, int);
+
+    static_assert(btshn::is_biztonsag_type_v<Foo>,
+                  "Foo should pass is_biztonsag_type");
+    static_assert(btshn::is_biztonsag_type_v<Bar>,
+                  "Bar should pass is_biztonsag_type");
 } // namespace
 
 TEST(Comparable, ctor) // NOLINT

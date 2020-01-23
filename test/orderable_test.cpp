@@ -20,6 +20,11 @@ namespace
                   "Foo shouldn't be implicitly convertable to Bar");
     static_assert(!std::is_convertible<Bar, Foo>::value,
                   "Bar shouldn't be implicitly convertable to Foo");
+
+    static_assert(btshn::is_biztonsag_type_v<Foo>,
+                  "Foo should pass is_biztonsag_type");
+    static_assert(btshn::is_biztonsag_type_v<Bar>,
+                  "Bar should pass is_biztonsag_type");
 } // namespace
 
 TEST(Orderable, less) // NOLINT

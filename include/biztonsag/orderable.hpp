@@ -42,6 +42,12 @@ namespace btshn
     {
         return !((*lhs) < (*rhs));
     }
+
+    template <typename T, typename TAG>
+    struct is_biztonsag_type<Orderable<T, TAG>>
+    {
+        constexpr static bool value = true;
+    };
 } // namespace btshn
 
 #endif
