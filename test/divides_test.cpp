@@ -13,18 +13,26 @@ namespace
 
 TEST(Divides, simple_divides) // NOLINT
 {
-    Width const orig{10};
-    Width const expected{2};
-    auto sum = orig / 5;
+    auto const starting = 10;
+    auto const divisor = 5;
+    auto const result = starting / divisor;
+
+    Width const orig{starting};
+    Width const expected{result};
+    auto sum = orig / divisor;
 
     ASSERT_EQ(expected, sum);
 }
 
 TEST(Divides, simple_divides_equals) // NOLINT
 {
-    Width const expected{2};
-    Width w{10};
-    w /= 5;
+    auto const starting = 10;
+    auto const divisor = 5;
+    auto const result = starting / divisor;
+
+    Width const expected{result};
+    Width w{starting};
+    w /= divisor;
 
     ASSERT_EQ(expected, w);
 }

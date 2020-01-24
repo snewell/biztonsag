@@ -13,18 +13,26 @@ namespace
 
 TEST(Minus, simple_minus) // NOLINT
 {
-    Width const orig{10};
-    Width const expected{4};
-    auto sum = orig - 6;
+    auto const starting = 10;
+    auto const rhs = 6;
+    auto const result = starting - rhs;
+
+    Width const orig{starting};
+    Width const expected{result};
+    auto sum = orig - rhs;
 
     ASSERT_EQ(expected, sum);
 }
 
 TEST(Minus, simple_minus_equals) // NOLINT
 {
-    Width const expected{4};
-    Width w{10};
-    w -= 6;
+    auto const starting = 10;
+    auto const rhs = 6;
+    auto const result = starting - rhs;
+
+    Width const expected{result};
+    Width w{starting};
+    w -= rhs;
 
     ASSERT_EQ(expected, w);
 }

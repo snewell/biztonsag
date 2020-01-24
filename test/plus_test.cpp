@@ -14,30 +14,41 @@ namespace
 
 TEST(Plus, simple_plus) // NOLINT
 {
-    Width const orig{0};
-    Width const expected{10};
-    auto sum = orig + 10;
+    auto const starting = 0;
+    auto const rhs = 10;
+    auto const result = starting + rhs;
+
+    Width const orig{starting};
+    Width const expected{result};
+    auto sum = orig + rhs;
 
     ASSERT_EQ(expected, sum);
 }
 
 TEST(Plus, simple_plus_unsigned) // NOLINT
 {
-    Width const orig{0};
-    std::uint64_t const expected{10};
-    auto const sum = orig + 10U;
+    auto const starting = 0;
+    auto const rhs = 10U;
+    auto const result = starting + rhs;
+
+    Width const orig{starting};
+    auto const sum = orig + rhs;
 
     static_assert(
         std::is_same<std::remove_cv_t<decltype(sum)>, std::uint64_t>::value,
         "Unexpected type");
-    ASSERT_EQ(expected, sum);
+    ASSERT_EQ(result, sum);
 }
 
 TEST(Plus, simple_plus_equals) // NOLINT
 {
-    Width const expected{10};
+    auto const starting = 0;
+    auto const rhs = 10;
+    auto const result = starting + rhs;
+
+    Width const expected{result};
     Width w{0};
-    w += 10;
+    w += rhs;
 
     ASSERT_EQ(expected, w);
 }

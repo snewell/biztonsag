@@ -13,18 +13,26 @@ namespace
 
 TEST(Times, simple_times) // NOLINT
 {
-    Width const orig{2};
-    Width const expected{20};
-    auto sum = orig * 10;
+    auto const starting = 2;
+    auto const rhs = 10;
+    auto const result = starting * rhs;
+
+    Width const orig{starting};
+    Width const expected{result};
+    auto sum = orig * rhs;
 
     ASSERT_EQ(expected, sum);
 }
 
 TEST(Times, simple_times_equals) // NOLINT
 {
-    Width const expected{10};
-    Width w{2};
-    w *= 5;
+    auto const starting = 2;
+    auto const rhs = 5;
+    auto const result = starting * rhs;
+
+    Width const expected{result};
+    Width w{starting};
+    w *= rhs;
 
     ASSERT_EQ(expected, w);
 }

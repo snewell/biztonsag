@@ -50,9 +50,9 @@ namespace detail
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_ASSIGN_OP_HELPER(base, other, assign_op)                    \
     /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                           \
-    constexpr auto operator assign_op(base & lhs, other && rhs)->base &        \
+    constexpr auto operator assign_op(base & lhs, const other & rhs)->base &   \
     {                                                                          \
-        *(lhs)assign_op std::forward<other>(rhs);                              \
+        *(lhs)assign_op(rhs);                                                  \
         return lhs;                                                            \
     }
 
