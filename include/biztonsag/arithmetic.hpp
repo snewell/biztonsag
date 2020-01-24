@@ -3,27 +3,35 @@
 
 #include <biztonsag/mixins.hpp>
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_DIVIDES(base, other, result)                                \
     BTSHN_MAKE_OP_HELPER(base, other, result, /)
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_DIVIDES_ASSIGN(base, other)                                 \
     BTSHN_MAKE_ASSIGN_OP_HELPER(base, other, /=)
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_MINUS(base, other, result)                                  \
     BTSHN_MAKE_OP_HELPER(base, other, result, -)
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_MINUS_ASSIGN(base, other)                                   \
     BTSHN_MAKE_ASSIGN_OP_HELPER(base, other, -=)
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_PLUS(base, other, result)                                   \
     BTSHN_MAKE_OP_HELPER(base, other, result, +)
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_PLUS_ASSIGN(base, other)                                    \
     BTSHN_MAKE_ASSIGN_OP_HELPER(base, other, +=)
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_TIMES(base, other, result)                                  \
     BTSHN_MAKE_OP_HELPER(base, other, result, *)
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_TIMES_ASSIGN(base, other)                                   \
     BTSHN_MAKE_ASSIGN_OP_HELPER(base, other, *=)
 

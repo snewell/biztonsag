@@ -21,9 +21,9 @@ namespace
     static_assert(!std::is_convertible<Bar, Foo>::value,
                   "Bar shouldn't be implicitly convertable to Foo");
 
-    static_assert(btshn::is_biztonsag_type_v<Foo>,
+    static_assert(btshn::is_biztonsag_type<Foo>::value,
                   "Foo should pass is_biztonsag_type");
-    static_assert(btshn::is_biztonsag_type_v<Bar>,
+    static_assert(btshn::is_biztonsag_type<Bar>::value,
                   "Bar should pass is_biztonsag_type");
 } // namespace
 

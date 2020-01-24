@@ -12,9 +12,9 @@ namespace
 
     BTSHN_MAKE_COMPARABLE(Bar, int);
 
-    static_assert(btshn::is_biztonsag_type_v<Foo>,
+    static_assert(btshn::is_biztonsag_type<Foo>::value,
                   "Foo should pass is_biztonsag_type");
-    static_assert(btshn::is_biztonsag_type_v<Bar>,
+    static_assert(btshn::is_biztonsag_type<Bar>::value,
                   "Bar should pass is_biztonsag_type");
 } // namespace
 

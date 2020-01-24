@@ -9,8 +9,10 @@ namespace btshn
         static constexpr bool value = false;
     };
 
+#if __cplusplus >= 201703L
     template <typename T>
-    constexpr auto is_biztonsag_type_v = is_biztonsag_type<T>::value;
+    constexpr inline auto is_biztonsag_type_v = is_biztonsag_type<T>::value;
+#endif
 } // namespace btshn
 
 #endif
