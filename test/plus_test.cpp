@@ -25,7 +25,7 @@ TEST(Plus, simple_plus_unsigned) // NOLINT
 {
     Width const orig{0};
     std::uint64_t const expected{10};
-    auto const sum = orig + 10u;
+    auto const sum = orig + 10U;
 
     static_assert(
         std::is_same<std::remove_cv_t<decltype(sum)>, std::uint64_t>::value,

@@ -124,7 +124,9 @@ namespace
 {
     struct ThrowingObjectBase
     {
-        ThrowingObjectBase() noexcept(false) {}
+        // gcc-8 won't compile this with "= default", so mask the clang-tidy
+        // warnings
+        ThrowingObjectBase() noexcept(false) {} // NOLINT
     };
     BTSHN_MAKE_WRAPPED(ThrowingObject, ThrowingObjectBase);
     static_assert(!std::is_nothrow_default_constructible<ThrowingObject>::value,
