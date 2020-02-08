@@ -45,7 +45,8 @@ namespace detail
             lhs, rhs, [](auto const & lhs, const auto & rhs) {                 \
                 return (*lhs)binary_op rhs;                                    \
             });                                                                \
-    }
+    }                                                                          \
+    static_assert(true, "cannot fail")
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_ASSIGN_OP_HELPER(base, other, assign_op)                    \
@@ -54,6 +55,7 @@ namespace detail
     {                                                                          \
         *(lhs)assign_op(rhs);                                                  \
         return lhs;                                                            \
-    }
+    }                                                                          \
+    static_assert(true, "cannot fail")
 
 #endif

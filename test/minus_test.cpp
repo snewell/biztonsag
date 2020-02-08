@@ -7,8 +7,8 @@ namespace
 {
     BTSHN_MAKE_COMPARABLE(Width, int);
 
-    BTSHN_MAKE_MINUS(Width, int, Width)
-    BTSHN_MAKE_MINUS_ASSIGN(Width, int)
+    BTSHN_MAKE_MINUS(Width, int, Width);
+    BTSHN_MAKE_MINUS_ASSIGN(Width, int);
 } // namespace
 
 TEST(Minus, simple_minus) // NOLINT

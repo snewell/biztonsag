@@ -13,8 +13,8 @@ namespace
     BTSHN_MAKE_COMPARABLE(Area, int);
 
     // we can have biztonsag stamp out operator* automatically
-    BTSHN_MAKE_TIMES(Width, Height, Area)
-    BTSHN_MAKE_TIMES(Height, Width, Area)
+    BTSHN_MAKE_TIMES(Width, Height, Area);
+    BTSHN_MAKE_TIMES(Height, Width, Area);
 } // namespace
 
 int main() // NOLINT(modernize-use-trailing-return-type)

@@ -7,9 +7,9 @@ namespace
 {
     BTSHN_MAKE_COMPARABLE(Width, int);
 
-    BTSHN_MAKE_PLUS(Width, int, Width)
-    BTSHN_MAKE_PLUS_ASSIGN(Width, int)
-    BTSHN_MAKE_PLUS(Width, unsigned int, std::uint64_t)
+    BTSHN_MAKE_PLUS(Width, int, Width);
+    BTSHN_MAKE_PLUS_ASSIGN(Width, int);
+    BTSHN_MAKE_PLUS(Width, unsigned int, std::uint64_t);
 } // namespace
 
 TEST(Plus, simple_plus) // NOLINT
