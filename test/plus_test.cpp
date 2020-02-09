@@ -6,11 +6,13 @@
 namespace
 {
     BTSHN_MAKE_COMPARABLE(Width, int);
+}
 
+namespace btshn
+{
     BTSHN_MAKE_PLUS(Width, int, Width);
-    BTSHN_MAKE_PLUS_ASSIGN(Width, int);
     BTSHN_MAKE_PLUS(Width, unsigned int, std::uint64_t);
-} // namespace
+} // namespace btshn
 
 TEST(Plus, simple_plus) // NOLINT
 {

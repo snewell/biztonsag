@@ -1,10 +1,10 @@
 create_test(biztonsag_tests
     comparable_test.cpp
     ctor_test.cpp
-    divides_test.cpp
-    minus_test.cpp
+    #divides_test.cpp
+    #minus_test.cpp
     orderable_test.cpp
     plus_test.cpp
-    times_test.cpp
+    #times_test.cpp
     wrapped_test.cpp
 )
