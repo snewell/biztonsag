@@ -5,6 +5,37 @@
 
 #include <biztonsag/traits.hpp>
 
+#define BTSHN_GENERATE_BINARY_FNS(result_type, binary_op, assign_op)           \
+    template <typename LHS, typename RHS,                                      \
+              typename std::enable_if_t<                                       \
+                  is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
+              typename std::enable_if_t<                                       \
+                  !is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 0>   \
+    constexpr auto operator binary_op(LHS const & lhs, RHS && other)           \
+    {                                                                          \
+        return result_type<LHS, RHS>{                                          \
+            (*lhs)binary_op std::forward<RHS>(other)};                         \
+    }                                                                          \
+    template <typename LHS, typename RHS,                                      \
+              typename std::enable_if_t<                                       \
+                  is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
+              typename std::enable_if_t<                                       \
+                  is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 1>    \
+    constexpr auto operator binary_op(LHS const & lhs, RHS && other)           \
+    {                                                                          \
+        return result_type<LHS, RHS>{(*lhs)binary_op(*other)};                 \
+    }                                                                          \
+    template <typename LHS, typename RHS,                                      \
+              typename std::enable_if_t<                                       \
+                  is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0>    \
+    constexpr auto operator assign_op(LHS & lhs, RHS && other)->LHS &          \
+    {                                                                          \
+        static_assert(std::is_same<LHS, result_type<LHS, RHS>>::value,         \
+                      "Result is a different type");                           \
+        (*lhs) assign_op std::forward<RHS>(other);                             \
+        return lhs;                                                            \
+    }
+
 namespace btshn
 {
     template <typename LHS, typename RHS>
@@ -14,22 +45,7 @@ namespace btshn
     using plus_result_t = typename plus_result<
         LHS, std::remove_cv_t<std::remove_reference_t<RHS>>>::type;
 
-    template <typename LHS, typename RHS,
-              typename std::enable_if_t<is_biztonsag_type<LHS>::value, int> = 0>
-    constexpr auto operator+(LHS const & lhs, RHS && other)
-    {
-        return plus_result_t<LHS, RHS>{(*lhs) + std::forward<RHS>(other)};
-    }
-
-    template <typename LHS, typename RHS,
-              typename std::enable_if_t<is_biztonsag_type<LHS>::value, int> = 0>
-    constexpr auto operator+=(LHS & lhs, RHS && other) -> LHS &
-    {
-        static_assert(std::is_same<LHS, plus_result_t<LHS, RHS>>::value,
-                      "Result is a different type");
-        (*lhs) += std::forward<RHS>(other);
-        return lhs;
-    }
+    BTSHN_GENERATE_BINARY_FNS(plus_result_t, +, +=)
 
     template <typename LHS, typename RHS>
     struct times_result;
@@ -38,15 +54,8 @@ namespace btshn
     using times_result_t = typename times_result<
         LHS, std::remove_cv_t<std::remove_reference_t<RHS>>>::type;
 
-    template <typename LHS, typename RHS,
-              typename std::enable_if_t<
-                  is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,
-              typename std::enable_if_t<
-                  !is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 0>
-    constexpr auto operator*(LHS const & lhs, RHS && other)
-    {
-        return times_result_t<LHS, RHS>{(*lhs) * std::forward<RHS>(other)};
-    }
+    BTSHN_GENERATE_BINARY_FNS(times_result_t, *, *=)
+} // namespace btshn
 
     template <typename LHS, typename RHS,
               typename std::enable_if_t<
