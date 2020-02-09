@@ -106,7 +106,6 @@ add_headers(
     arithmetic.hpp
     comparable.hpp
     create_macro.hpp
-    mixins.hpp
     orderable.hpp
     wrapped.hpp
 )
