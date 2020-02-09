@@ -6,10 +6,12 @@
 namespace
 {
     BTSHN_MAKE_COMPARABLE(Width, int);
+}
 
+namespace btshn
+{
     BTSHN_MAKE_MINUS(Width, int, Width);
-    BTSHN_MAKE_MINUS_ASSIGN(Width, int);
-} // namespace
+} // namespace btshn
 
 TEST(Minus, simple_minus) // NOLINT
 {

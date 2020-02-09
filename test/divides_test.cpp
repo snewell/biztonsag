@@ -6,10 +6,12 @@
 namespace
 {
     BTSHN_MAKE_COMPARABLE(Width, int);
+}
 
+namespace btshn
+{
     BTSHN_MAKE_DIVIDES(Width, int, Width);
-    BTSHN_MAKE_DIVIDES_ASSIGN(Width, int);
-} // namespace
+} // namespace btshn
 
 TEST(Divides, simple_divides) // NOLINT
 {
