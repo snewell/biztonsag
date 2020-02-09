@@ -6,10 +6,12 @@
 namespace
 {
     BTSHN_MAKE_COMPARABLE(Width, int);
+}
 
+namespace btshn
+{
     BTSHN_MAKE_TIMES(Width, int, Width);
-    BTSHN_MAKE_TIMES_ASSIGN(Width, int);
-} // namespace
+} // namespace btshn
 
 TEST(Times, simple_times) // NOLINT
 {

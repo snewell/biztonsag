@@ -5,6 +5,6 @@ create_test(biztonsag_tests
     #minus_test.cpp
     orderable_test.cpp
     plus_test.cpp
-    #times_test.cpp
+    times_test.cpp
     wrapped_test.cpp
 )
