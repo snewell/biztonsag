@@ -30,13 +30,28 @@
     }                                                                          \
     template <typename LHS, typename RHS,                                      \
               typename std::enable_if_t<                                       \
-                  is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0>    \
+                  is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
+              typename std::enable_if_t<                                       \
+                  !is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 0>   \
     constexpr auto operator assign_op(LHS & lhs, RHS && other)->LHS &          \
     {                                                                          \
         /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
         static_assert(std::is_same<LHS, result_type<LHS, RHS>>::value,         \
                       "Result is a different type");                           \
         (*lhs) assign_op std::forward<RHS>(other);                             \
+        return lhs;                                                            \
+    }                                                                          \
+    template <typename LHS, typename RHS,                                      \
+              typename std::enable_if_t<                                       \
+                  is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
+              typename std::enable_if_t<                                       \
+                  is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 1>    \
+    constexpr auto operator assign_op(LHS & lhs, RHS && other)->LHS &          \
+    {                                                                          \
+        /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
+        static_assert(std::is_same<LHS, result_type<LHS, RHS>>::value,         \
+                      "Result is a different type");                           \
+        (*lhs) assign_op(*other);                                              \
         return lhs;                                                            \
     }
 

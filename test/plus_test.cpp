@@ -11,6 +11,7 @@ namespace
 namespace btshn
 {
     BTSHN_MAKE_PLUS(Width, int, Width);
+    BTSHN_MAKE_PLUS(Width, Width, Width);
     BTSHN_MAKE_PLUS(Width, unsigned int, std::uint64_t);
 } // namespace btshn
 
@@ -42,6 +43,20 @@ TEST(Plus, simple_plus_unsigned) // NOLINT
     ASSERT_EQ(result, sum);
 }
 
+TEST(Plus, simple_plus_width) // NOLINT
+{
+    auto const starting = 0;
+    auto const raw_rhs = 10;
+    auto const result = starting + raw_rhs;
+
+    Width const orig{starting};
+    Width const rhs{raw_rhs};
+    Width const expected{result};
+    auto sum = orig + rhs;
+
+    ASSERT_EQ(expected, sum);
+}
+
 TEST(Plus, simple_plus_equals) // NOLINT
 {
     auto const starting = 0;
@@ -50,6 +65,20 @@ TEST(Plus, simple_plus_equals) // NOLINT
 
     Width const expected{result};
     Width w{0};
+    w += rhs;
+
+    ASSERT_EQ(expected, w);
+}
+
+TEST(Plus, simple_plus_equals_width) // NOLINT
+{
+    auto const starting = 0;
+    auto const raw_rhs = 10;
+    auto const result = starting + raw_rhs;
+
+    Width const expected{result};
+    Width w{0};
+    Width rhs{raw_rhs};
     w += rhs;
 
     ASSERT_EQ(expected, w);
