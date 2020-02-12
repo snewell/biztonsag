@@ -3,8 +3,19 @@
 
 #include <type_traits>
 
+/** \file traits.hpp
+ *
+ * \defgroup TypeTraits Type Traits
+ */
+
 namespace btshn
 {
+    /** \brief a type trait that determines if something is part of biztonsag
+     *
+     * \note This is mostly for intended for internal use
+     *
+     * \ingroup TypeTraits
+     */
     template <typename T>
     struct is_biztonsag_type
     {
@@ -16,6 +27,12 @@ namespace btshn
     constexpr inline auto is_biztonsag_type_v = is_biztonsag_type<T>::value;
 #endif
 
+    /** \brief a type trait that removes cv-attributes and the reference type
+     *
+     * \note This is mostly for intended for internal use
+     *
+     * \ingroup TypeTraits
+     */
     template <typename T>
     struct remove_cv_ref
     {

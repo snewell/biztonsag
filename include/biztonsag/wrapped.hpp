@@ -1,12 +1,29 @@
 #ifndef BIZTONSAG_WRAPPED_HPP
 #define BIZTONSAG_WRAPPED_HPP 1 // NOLINT(cppcoreguidelines-macro-usage)
 
+/// \file wrapped.hpp
+
 #include <type_traits>
 #include <utility>
 
 #include <biztonsag/create_macro.hpp>
 #include <biztonsag/traits.hpp>
 
+/** \brief Create a `Wrapped` type
+ *
+ * This will create a tag type and a type alias that uses that type.  For
+ * example, `BTSHN_MAKE_WRAPPED(Foo, int)` is morally identical to the
+ * following:
+ *
+ * \code
+ * namespace detail {
+ *   namespace auto_btsh {
+ *     struct FooTag { };
+ *   }
+ * }
+ * using Foo = btshn::Wrapped<int, detail::auto_btshn<FooTag>>;
+ * \endcode
+ */
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_WRAPPED(name, ...)                                          \
     BTSHN_MAKE_TYPE(Wrapped, name, __VA_ARGS__)
@@ -28,6 +45,9 @@ namespace btshn
      * \tparam TAG a type to prevent implicit conversions
      *
      * \note `TAG` will never be instantiated by `Wrapped`
+     *
+     * \note For most use cases, using \ref BTSHN_MAKE_WRAPPED is simpler than
+     *       `Wrapped`.
      *
      * \warning `TAG` isn't required to be unique, but that's what prevents the
      *          implicit conversions that Apps Hungarian tires to avoid
@@ -125,6 +145,9 @@ namespace btshn
         T m_value;
     };
 
+    /** \brief Specialization of is_biztonsag_type
+     * \ingroup TypeTraits
+     */
     template <typename T, typename TAG>
     struct is_biztonsag_type<Wrapped<T, TAG>>
     {
