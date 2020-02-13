@@ -9,49 +9,47 @@
 #include <biztonsag/create_macro.hpp>
 #include <biztonsag/traits.hpp>
 
-/** \brief Create a `Wrapped` type
- *
- * This will create a tag type and a type alias that uses that type.  For
- * example, `BTSHN_MAKE_WRAPPED(Foo, int)` is morally identical to the
- * following:
- *
- * \code
- * namespace detail {
- *   namespace auto_btsh {
- *     struct FooTag { };
- *   }
- * }
- * using Foo = btshn::Wrapped<int, detail::auto_btshn<FooTag>>;
- * \endcode
- */
+/// \brief Create a `Wrapped` type
+///
+/// This will create a tag type and a type alias that uses that type.  For
+/// example, `BTSHN_MAKE_WRAPPED(Foo, int)` is morally identical to the
+/// following:
+///
+/// \code
+/// namespace detail {
+///   namespace auto_btsh {
+///     struct FooTag { };
+///   }
+/// }
+/// using Foo = btshn::Wrapped<int, detail::auto_btshn<FooTag>>;
+/// \endcode
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_WRAPPED(name, ...)                                          \
     BTSHN_MAKE_TYPE(Wrapped, name, __VA_ARGS__)
 
 namespace btshn
 {
-    /** \brief A type-safe wrapper around some data
-     *
-     * `Wrapped` provides a way to trivially wrap a piece of data.  It's
-     * designed to convert the types of bugs that "Apps Hungarian" provents into
-     * compilation errors.
-     *
-     * `Wrapped` will always take up identical memory as a plain `T`; this is
-     * guaranteed via `static_assert`.  With optimizations enabled, most
-     * compilers should be able to remove any additional runtime overhead as
-     * well.
-     *
-     * \tparam T the type of data to wrap
-     * \tparam TAG a type to prevent implicit conversions
-     *
-     * \note `TAG` will never be instantiated by `Wrapped`
-     *
-     * \note For most use cases, using \ref BTSHN_MAKE_WRAPPED is simpler than
-     *       `Wrapped`.
-     *
-     * \warning `TAG` isn't required to be unique, but that's what prevents the
-     *          implicit conversions that Apps Hungarian tires to avoid
-     */
+    /// \brief A type-safe wrapper around some data
+    ///
+    /// `Wrapped` provides a way to trivially wrap a piece of data.  It's
+    /// designed to convert the types of bugs that "Apps Hungarian" provents
+    /// into compilation errors.
+    ///
+    /// `Wrapped` will always take up identical memory as a plain `T`; this is
+    /// guaranteed via `static_assert`.  With optimizations enabled, most
+    /// compilers should be able to remove any additional runtime overhead as
+    /// well.
+    ///
+    /// \tparam T the type of data to wrap
+    /// \tparam TAG a type to prevent implicit conversions
+    ///
+    /// \note `TAG` will never be instantiated by `Wrapped`
+    ///
+    /// \note For most use cases, using \ref BTSHN_MAKE_WRAPPED is simpler than
+    ///       `Wrapped`.
+    ///
+    /// \warning `TAG` isn't required to be unique, but that's what prevents the
+    ///          implicit conversions that Apps Hungarian tires to avoid
     template <typename T, typename TAG>
     struct Wrapped
     {
@@ -61,10 +59,9 @@ namespace btshn
         /// \brief the type of the tag
         using tag_type = TAG;
 
-        /** \brief Construct via `std::move`
-         *
-         * \param value passed via `std::move` to `T`'s constructor
-         */
+        /// \brief Construct via `std::move`
+        ///
+        /// \param value passed via `std::move` to `T`'s constructor
         constexpr explicit Wrapped(T value) noexcept(
             std::is_nothrow_move_constructible<T>::value)
           : m_value{std::move(value)}
@@ -73,16 +70,16 @@ namespace btshn
                           "Extra memory requirements");
         }
 
-        /** \brief Construct using forwarded arguments
-         *
-         * This constructor is provided to avoid needing to construct a `T` just
-         * to pass to the move constructor.  It's designed to work similiar to
-         * the `emplace` or `make_*` functions from the standard librray.
-         *
-         * \param args arguments to pass on to `T`'s constructor
-         *
-         * \tparam ARGS a parameter pack
-         */
+        /// \brief Construct using forwarded arguments
+        ///
+        /// This constructor is provided to avoid needing to construct a `T`
+        /// just to pass to the move constructor.  It's designed to work
+        /// similiar to the `emplace` or `make_*` functions from the standard
+        /// librray.
+        ///
+        /// \param args arguments to pass on to `T`'s constructor
+        ///
+        /// \tparam ARGS a parameter pack
         template <typename... ARGS>
         constexpr explicit Wrapped(ARGS &&... args) noexcept(
             std::is_nothrow_constructible<T, ARGS...>::value)
@@ -92,19 +89,18 @@ namespace btshn
                           "Extra memory requirements");
         }
 
-        /** \brief Construct using an `std::initializer_list`
-         *
-         * This constructor enables the wrapped data to be constructed with an
-         * `std::initializer_list`.  This should make it more efficient when
-         * constructing certain types.
-         *
-         * \note this constructor is only available if `T` can be constructed
-         *       via an `std::initializer_list<U>`
-         *
-         * \param list the data to pass to `T`'s constructor
-         *
-         * \tparam U the type available in \a list
-         */
+        /// \brief Construct using an `std::initializer_list`
+        ///
+        /// This constructor enables the wrapped data to be constructed with an
+        /// `std::initializer_list`.  This should make it more efficient when
+        /// constructing certain types.
+        ///
+        /// \note this constructor is only available if `T` can be constructed
+        ///       via an `std::initializer_list<U>`
+        ///
+        /// \param list the data to pass to `T`'s constructor
+        ///
+        /// \tparam U the type available in \a list
         template <typename U,
                   std::enable_if_t<
                       std::is_constructible<T, std::initializer_list<U>>::value,
@@ -145,9 +141,8 @@ namespace btshn
         T m_value;
     };
 
-    /** \brief Specialization of is_biztonsag_type
-     * \ingroup TypeTraits
-     */
+    /// \brief Specialization of is_biztonsag_type
+    /// \ingroup TypeTraits
     template <typename T, typename TAG>
     struct is_biztonsag_type<Wrapped<T, TAG>>
     {
