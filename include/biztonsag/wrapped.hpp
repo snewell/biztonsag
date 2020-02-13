@@ -9,11 +9,11 @@
 #include <biztonsag/create_macro.hpp>
 #include <biztonsag/traits.hpp>
 
-/// \brief Create a `Wrapped` type
+/// \brief Create a Wrapped type
 ///
-/// This will create a tag type and a type alias that uses that type.  For
-/// example, `BTSHN_MAKE_WRAPPED(Foo, int)` is morally identical to the
-/// following:
+/// This will create a tag type and a type alias to a Wrapped that uses that
+/// tag.  For example, `BTSHN_MAKE_WRAPPED(Foo, int)` is morally identical to
+/// the following:
 ///
 /// \code
 /// namespace detail {
@@ -31,11 +31,11 @@ namespace btshn
 {
     /// \brief A type-safe wrapper around some data
     ///
-    /// `Wrapped` provides a way to trivially wrap a piece of data.  It's
+    /// Wrapped provides a way to trivially wrap a piece of data.  It's
     /// designed to convert the types of bugs that "Apps Hungarian" provents
     /// into compilation errors.
     ///
-    /// `Wrapped` will always take up identical memory as a plain `T`; this is
+    /// Wrapped will always take up identical memory as a plain `T`; this is
     /// guaranteed via `static_assert`.  With optimizations enabled, most
     /// compilers should be able to remove any additional runtime overhead as
     /// well.
@@ -146,6 +146,7 @@ namespace btshn
     template <typename T, typename TAG>
     struct is_biztonsag_type<Wrapped<T, TAG>>
     {
+        /// \brief any Wrapped is a biztonsag type
         constexpr static bool value = true;
     };
 } // namespace btshn

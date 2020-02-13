@@ -18,6 +18,14 @@ namespace btshn
     template <typename T>
     struct is_biztonsag_type
     {
+        /// \brief a compile-time variable that determines if a type is part of
+        ///        biztonsag
+        ///
+        /// Most types will be `false`, so any biztonsag type will need to
+        /// specialize.
+        ///
+        /// \note This is mostly intended for internal use, but may be useful
+        ///       for some compile-time type evaluation.
         static constexpr bool value = false;
     };
 
@@ -36,6 +44,7 @@ namespace btshn
     template <typename T>
     struct remove_cv_ref
     {
+        /// \brief the actual type biztonsag cares about
         using type = std::remove_cv_t<std::remove_reference_t<T>>;
     };
 
