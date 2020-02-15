@@ -22,7 +22,33 @@ namespace btshn
         LHS, std::remove_cv_t<std::remove_reference_t<RHS>>>::type;
 
     BTSHN_GENERATE_BINARY_FNS(bitor_result_t, |, |=)
+
+    template <typename LHS, typename RHS>
+    struct leftshift_result;
+
+    template <typename LHS, typename RHS>
+    using leftshift_result_t = typename leftshift_result<
+        LHS, std::remove_cv_t<std::remove_reference_t<RHS>>>::type;
+
+    BTSHN_GENERATE_BINARY_FNS(leftshift_result_t, <<, <<=)
+
+    template <typename LHS, typename RHS>
+    struct rightshift_result;
+
+    template <typename LHS, typename RHS>
+    using rightshift_result_t = typename rightshift_result<
+        LHS, std::remove_cv_t<std::remove_reference_t<RHS>>>::type;
+
+    BTSHN_GENERATE_BINARY_FNS(rightshift_result_t, >>, >>=)
 } // namespace btshn
+
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
+#define BTSHN_MAKE_BITAND(base_type, other_type, result_type)                  \
+    template <>                                                                \
+    struct bitand_result<base_type, other_type>                                \
+    {                                                                          \
+        using type = result_type;                                              \
+    }
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_BITOR(base_type, other_type, result_type)                   \
@@ -33,9 +59,17 @@ namespace btshn
     }
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define BTSHN_MAKE_BITAND(base_type, other_type, result_type)                  \
+#define BTSHN_MAKE_LEFTSHIFT(base_type, other_type, result_type)               \
     template <>                                                                \
-    struct bitand_result<base_type, other_type>                                \
+    struct leftshift_result<base_type, other_type>                             \
+    {                                                                          \
+        using type = result_type;                                              \
+    }
+
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
+#define BTSHN_MAKE_RIGHTSHIFT(base_type, other_type, result_type)              \
+    template <>                                                                \
+    struct rightshift_result<base_type, other_type>                            \
     {                                                                          \
         using type = result_type;                                              \
     }
