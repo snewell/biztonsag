@@ -104,6 +104,7 @@ add_subdirectory(test)
 
 add_headers(
     arithmetic.hpp
+    bitop.hpp
     comparable.hpp
     create_macro.hpp
     orderable.hpp

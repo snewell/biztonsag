@@ -1,4 +1,5 @@
 create_test(biztonsag_tests
+    bitop_test.cpp
     comparable_test.cpp
     ctor_test.cpp
     divides_test.cpp
