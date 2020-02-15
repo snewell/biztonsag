@@ -3,11 +3,7 @@
 
 /// \file wrapped.hpp
 
-#include <type_traits>
-#include <utility>
-
 #include <biztonsag/create_macro.hpp>
-#include <biztonsag/traits.hpp>
 
 /// \brief Create a Wrapped type
 ///

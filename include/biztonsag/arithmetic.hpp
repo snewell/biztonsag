@@ -1,59 +1,7 @@
 #ifndef BIZTONSAG_ARITHMETIC_HPP
 #define BIZTONSAG_ARITHMETIC_HPP 1 // NOLINT(cppcoreguidelines-macro-usage)
 
-#include <utility>
-
-#include <biztonsag/traits.hpp>
-
-// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
-#define BTSHN_GENERATE_BINARY_FNS(result_type, binary_op, assign_op)           \
-    template <typename LHS, typename RHS,                                      \
-              typename std::enable_if_t<                                       \
-                  is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
-              typename std::enable_if_t<                                       \
-                  !is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 0>   \
-    constexpr auto operator binary_op(LHS const & lhs, RHS && other)           \
-    {                                                                          \
-        /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
-        return result_type<LHS, RHS>{                                          \
-            (*lhs)binary_op std::forward<RHS>(other)};                         \
-    }                                                                          \
-    template <typename LHS, typename RHS,                                      \
-              typename std::enable_if_t<                                       \
-                  is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
-              typename std::enable_if_t<                                       \
-                  is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 1>    \
-    constexpr auto operator binary_op(LHS const & lhs, RHS && other)           \
-    {                                                                          \
-        /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
-        return result_type<LHS, RHS>{(*lhs)binary_op(*other)};                 \
-    }                                                                          \
-    template <typename LHS, typename RHS,                                      \
-              typename std::enable_if_t<                                       \
-                  is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
-              typename std::enable_if_t<                                       \
-                  !is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 0>   \
-    constexpr auto operator assign_op(LHS & lhs, RHS && other)->LHS &          \
-    {                                                                          \
-        /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
-        static_assert(std::is_same<LHS, result_type<LHS, RHS>>::value,         \
-                      "Result is a different type");                           \
-        (*lhs) assign_op std::forward<RHS>(other);                             \
-        return lhs;                                                            \
-    }                                                                          \
-    template <typename LHS, typename RHS,                                      \
-              typename std::enable_if_t<                                       \
-                  is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
-              typename std::enable_if_t<                                       \
-                  is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 1>    \
-    constexpr auto operator assign_op(LHS & lhs, RHS && other)->LHS &          \
-    {                                                                          \
-        /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
-        static_assert(std::is_same<LHS, result_type<LHS, RHS>>::value,         \
-                      "Result is a different type");                           \
-        (*lhs) assign_op(*other);                                              \
-        return lhs;                                                            \
-    }
+#include <biztonsag/create_macro.hpp>
 
 namespace btshn
 {
