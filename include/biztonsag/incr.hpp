@@ -66,6 +66,7 @@ namespace btshn
     }
 } // namespace btshn
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_INCREMENTABLE(base_type)                                    \
     template <>                                                                \
     struct can_increment<base_type>                                            \
@@ -73,6 +74,7 @@ namespace btshn
         static constexpr bool value = true;                                    \
     }
 
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
 #define BTSHN_MAKE_DECREMENTABLE(base_type)                                    \
     template <>                                                                \
     struct can_decrement<base_type>                                            \

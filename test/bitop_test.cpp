@@ -22,7 +22,7 @@ namespace btshn
     BTSHN_MAKE_RIGHTSHIFT(Flags, unsigned int, Flags);
 } // namespace btshn
 
-TEST(Bitop, bitand_same_result)
+TEST(Bitop, bitand_same_result) // NOLINT
 {
     Flags const initial{flag1 | flag2 | flag3};
     Flags const expected{flag2};
@@ -31,7 +31,7 @@ TEST(Bitop, bitand_same_result)
     ASSERT_EQ(result, expected);
 }
 
-TEST(Bitop, bitand_assign_same)
+TEST(Bitop, bitand_assign_same) // NOLINT
 {
     Flags f{flag1 | flag2 | flag3};
     Flags const expected{flag2};
@@ -40,7 +40,7 @@ TEST(Bitop, bitand_assign_same)
     ASSERT_EQ(f, expected);
 }
 
-TEST(Bitop, bitor_same_result)
+TEST(Bitop, bitor_same_result) // NOLINT
 {
     Flags const initial{0};
     Flags const expected{flag1 | flag3};
@@ -49,7 +49,7 @@ TEST(Bitop, bitor_same_result)
     ASSERT_EQ(result, expected);
 }
 
-TEST(Bitop, bitor_assign_same)
+TEST(Bitop, bitor_assign_same) // NOLINT
 {
     Flags f{0};
     Flags const expected{flag1 | flag3};
@@ -58,38 +58,38 @@ TEST(Bitop, bitor_assign_same)
     ASSERT_EQ(f, expected);
 }
 
-TEST(Bitop, leftshift_same_result)
+TEST(Bitop, leftshift_same_result) // NOLINT
 {
     Flags const initial{flag1 | flag2};
     Flags const expected{flag2 | flag3};
 
-    auto const result = initial << 1u;
+    auto const result = initial << 1U;
     ASSERT_EQ(result, expected);
 }
 
-TEST(Bitop, leftshift_assign_same)
+TEST(Bitop, leftshift_assign_same) // NOLINT
 {
     Flags f{flag1 | flag2};
     Flags const expected{flag2 | flag3};
 
-    f <<= 1u;
+    f <<= 1U;
     ASSERT_EQ(f, expected);
 }
 
-TEST(Bitop, rightshift_same_result)
+TEST(Bitop, rightshift_same_result) // NOLINT
 {
     Flags const initial{flag2 | flag3};
     Flags const expected{flag1 | flag2};
 
-    auto const result = initial >> 1u;
+    auto const result = initial >> 1U;
     ASSERT_EQ(result, expected);
 }
 
-TEST(Bitop, rightshift_assign_same)
+TEST(Bitop, rightshift_assign_same) // NOLINT
 {
     Flags f{flag2 | flag3};
     Flags const expected{flag1 | flag2};
 
-    f >>= 1u;
+    f >>= 1U;
     ASSERT_EQ(f, expected);
 }
