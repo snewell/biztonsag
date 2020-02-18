@@ -107,7 +107,9 @@ add_headers(
     bitop.hpp
     comparable.hpp
     create_macro.hpp
+    incr.hpp
     orderable.hpp
+    traits.hpp
     wrapped.hpp
 )
 
