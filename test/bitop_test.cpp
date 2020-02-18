@@ -6,11 +6,11 @@
 
 namespace
 {
-    BTSHN_MAKE_COMPARABLE(Flags, int);
+    BTSHN_MAKE_COMPARABLE(Flags, unsigned int);
 
-    constexpr auto flag1 = 0x01;
-    constexpr auto flag2 = 0x02;
-    constexpr auto flag3 = 0x04;
+    constexpr auto flag1 = 0x01U;
+    constexpr auto flag2 = 0x02U;
+    constexpr auto flag3 = 0x04U;
 } // namespace
 
 namespace btshn
