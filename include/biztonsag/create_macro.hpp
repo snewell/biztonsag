@@ -36,7 +36,8 @@
                   is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
               typename std::enable_if_t<                                       \
                   !is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 0>   \
-    constexpr auto operator binary_op(LHS const & lhs, RHS && other)           \
+    constexpr auto operator binary_op(LHS const & lhs, RHS && other) noexcept( \
+        (noexcept((*lhs)binary_op std::forward<RHS>(other))))                  \
     {                                                                          \
         /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
         return result_type<LHS, RHS>{                                          \
@@ -47,7 +48,8 @@
                   is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
               typename std::enable_if_t<                                       \
                   is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 1>    \
-    constexpr auto operator binary_op(LHS const & lhs, RHS && other)           \
+    constexpr auto operator binary_op(LHS const & lhs, RHS && other) noexcept( \
+        (noexcept((*lhs)binary_op(*other))))                                   \
     {                                                                          \
         /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
         return result_type<LHS, RHS>{(*lhs)binary_op(*other)};                 \
@@ -57,7 +59,9 @@
                   is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
               typename std::enable_if_t<                                       \
                   !is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 0>   \
-    constexpr auto operator assign_op(LHS & lhs, RHS && other)->LHS &          \
+    constexpr auto operator assign_op(LHS & lhs, RHS && other) noexcept(       \
+        (noexcept((*lhs)assign_op std::forward<RHS>(other))))                  \
+        ->LHS &                                                                \
     {                                                                          \
         /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
         static_assert(std::is_same<LHS, result_type<LHS, RHS>>::value,         \
@@ -70,7 +74,9 @@
                   is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
               typename std::enable_if_t<                                       \
                   is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 1>    \
-    constexpr auto operator assign_op(LHS & lhs, RHS && other)->LHS &          \
+    constexpr auto operator assign_op(LHS & lhs, RHS && other) noexcept(       \
+        (noexcept((*lhs)assign_op(*other))))                                   \
+        ->LHS &                                                                \
     {                                                                          \
         /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
         static_assert(std::is_same<LHS, result_type<LHS, RHS>>::value,         \

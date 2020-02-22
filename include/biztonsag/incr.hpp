@@ -29,7 +29,7 @@ namespace btshn
 
     template <typename T,
               typename std::enable_if_t<is_biztonsag_type<T>::value, int> = 0>
-    auto operator++(T & t) -> T &
+    auto operator++(T & t) noexcept((noexcept(++(*t)))) -> T &
     {
         static_assert(can_increment<T>::value, "Type cannot be incremented");
         ++(*t);
@@ -38,7 +38,7 @@ namespace btshn
 
     template <typename T,
               typename std::enable_if_t<is_biztonsag_type<T>::value, int> = 0>
-    auto operator++(T & t, int) -> T
+    auto operator++(T & t, int) noexcept((noexcept((*t)++))) -> T
     {
         static_assert(can_increment<T>::value, "Type cannot be incremented");
         auto ret = t;
@@ -48,7 +48,7 @@ namespace btshn
 
     template <typename T,
               typename std::enable_if_t<is_biztonsag_type<T>::value, int> = 0>
-    auto operator--(T & t) -> T &
+    auto operator--(T & t) noexcept((noexcept(--(*t)))) -> T &
     {
         static_assert(can_decrement<T>::value, "Type cannot be decremented");
         --(*t);
@@ -57,7 +57,7 @@ namespace btshn
 
     template <typename T,
               typename std::enable_if_t<is_biztonsag_type<T>::value, int> = 0>
-    auto operator--(T & t, int) -> T
+    auto operator--(T & t, int) noexcept((noexcept((*t)--))) -> T
     {
         static_assert(can_decrement<T>::value, "Type cannot be decremented");
         auto ret = t;
