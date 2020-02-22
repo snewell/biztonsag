@@ -51,34 +51,38 @@ namespace btshn
 
     /// \brief compare two Orderables using the less-than operator
     template <typename T, typename TAG>
-    constexpr auto operator<(Orderable<T, TAG> const & lhs,
-                             Orderable<T, TAG> const & rhs) noexcept
+    constexpr auto
+    operator<(Orderable<T, TAG> const & lhs,
+              Orderable<T, TAG> const & rhs) noexcept(noexcept((*lhs) < (*rhs)))
     {
         return (*lhs) < (*rhs);
     }
 
     /// \brief compare two Orderables using the greater-than operator
     template <typename T, typename TAG>
-    constexpr auto operator>(Orderable<T, TAG> const & lhs,
-                             Orderable<T, TAG> const & rhs) noexcept
+    constexpr auto
+    operator>(Orderable<T, TAG> const & lhs,
+              Orderable<T, TAG> const & rhs) noexcept(noexcept((*lhs) > (*rhs)))
     {
         return (*lhs) > (*rhs);
     }
 
     /// \brief compare two Orderables using the less-than or equal operator
     template <typename T, typename TAG>
-    constexpr auto operator<=(Orderable<T, TAG> const & lhs,
-                              Orderable<T, TAG> const & rhs) noexcept
+    constexpr auto operator<=(
+        Orderable<T, TAG> const & lhs,
+        Orderable<T, TAG> const & rhs) noexcept(noexcept((*lhs) <= (*rhs)))
     {
-        return !((*lhs) > (*rhs));
+        return (*lhs) <= (*rhs);
     }
 
     /// \brief compare two Orderables using the greater-than or equal operator
     template <typename T, typename TAG>
-    constexpr auto operator>=(Orderable<T, TAG> const & lhs,
-                              Orderable<T, TAG> const & rhs) noexcept
+    constexpr auto operator>=(
+        Orderable<T, TAG> const & lhs,
+        Orderable<T, TAG> const & rhs) noexcept(noexcept((*lhs) >= (*rhs)))
     {
-        return !((*lhs) < (*rhs));
+        return (*lhs) >= (*rhs);
     }
 
     /// \brief specialization of is_biztonsag_type

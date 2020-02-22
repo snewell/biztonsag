@@ -50,16 +50,18 @@ namespace btshn
 
     /// \brief compare two instances of the same Comparable for equality
     template <typename T, typename TAG>
-    constexpr auto operator==(Comparable<T, TAG> const & lhs,
-                              Comparable<T, TAG> const & rhs) noexcept
+    constexpr auto operator==(
+        Comparable<T, TAG> const & lhs,
+        Comparable<T, TAG> const & rhs) noexcept(noexcept((*lhs) == (*rhs)))
     {
         return (*lhs) == (*rhs);
     }
 
     /// \brief compare two instances of the same Comparable for inequality
     template <typename T, typename TAG>
-    constexpr auto operator!=(Comparable<T, TAG> const & lhs,
-                              Comparable<T, TAG> const & rhs) noexcept
+    constexpr auto operator!=(
+        Comparable<T, TAG> const & lhs,
+        Comparable<T, TAG> const & rhs) noexcept(noexcept((*lhs) != (*rhs)))
     {
         return (*lhs) != (*rhs);
     }
