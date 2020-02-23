@@ -4,6 +4,7 @@ create_test(biztonsag_tests
     ctor_test.cpp
     divides_test.cpp
     increment_test.cpp
+    logical_test.cpp
     minus_test.cpp
     orderable_test.cpp
     plus_test.cpp

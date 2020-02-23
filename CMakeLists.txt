@@ -108,6 +108,7 @@ add_headers(
     comparable.hpp
     create_macro.hpp
     incr.hpp
+    logical.hpp
     orderable.hpp
     traits.hpp
     wrapped.hpp

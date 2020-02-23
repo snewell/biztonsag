@@ -85,4 +85,16 @@
         return lhs;                                                            \
     }
 
+#define BTSHN_GENERATE_UNARY_FNS(trait, unary_operator)                        \
+    template <typename T,                                                      \
+              typename std::enable_if_t<                                       \
+                  is_biztonsag_type<remove_cv_ref_t<T>>::value, int> = 0>      \
+    constexpr auto operator unary_operator(T && t) noexcept(                   \
+        noexcept(unary_operator(*(std::forward<T>(t)))))                       \
+        ->remove_cv_ref_t<T>                                                   \
+    {                                                                          \
+        static_assert(trait<remove_cv_ref_t<T>>::value, "Not negatable");      \
+        return remove_cv_ref_t<T>{unary_operator(*t)};                         \
+    }
+
 #endif
