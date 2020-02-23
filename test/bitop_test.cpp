@@ -17,6 +17,7 @@ namespace btshn
 {
     BTSHN_MAKE_BITAND(Flags, Flags, Flags);
     BTSHN_MAKE_BITOR(Flags, Flags, Flags);
+    BTSHN_MAKE_BITXOR(Flags, Flags, Flags);
 
     BTSHN_MAKE_LEFTSHIFT(Flags, unsigned int, Flags);
     BTSHN_MAKE_RIGHTSHIFT(Flags, unsigned int, Flags);
@@ -56,6 +57,28 @@ TEST(Bitop, bitor_assign_same) // NOLINT
 
     f |= expected;
     ASSERT_EQ(f, expected);
+}
+
+TEST(Bitop, bitxor_same_result) // NOLINT
+{
+    Flags const initial{0};
+    Flags const expected1{flag1};
+
+    auto const result1 = initial ^ expected1;
+    ASSERT_EQ(result1, expected1);
+    auto const result2 = result1 ^ expected1;
+    ASSERT_EQ(result2, initial);
+}
+
+TEST(Bitop, bitxor_assign_same) // NOLINT
+{
+    Flags f{0};
+    Flags const expected{flag1};
+
+    f ^= expected;
+    ASSERT_EQ(f, expected);
+    f ^= expected;
+    ASSERT_EQ(f, Flags{0});
 }
 
 TEST(Bitop, leftshift_same_result) // NOLINT

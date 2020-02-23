@@ -24,6 +24,15 @@ namespace btshn
     BTSHN_GENERATE_BINARY_FNS(bitor_result_t, |, |=)
 
     template <typename LHS, typename RHS>
+    struct bitxor_result;
+
+    template <typename LHS, typename RHS>
+    using bitxor_result_t = typename bitxor_result<
+        LHS, std::remove_cv_t<std::remove_reference_t<RHS>>>::type;
+
+    BTSHN_GENERATE_BINARY_FNS(bitxor_result_t, ^, ^=)
+
+    template <typename LHS, typename RHS>
     struct leftshift_result;
 
     template <typename LHS, typename RHS>
@@ -54,6 +63,14 @@ namespace btshn
 #define BTSHN_MAKE_BITOR(base_type, other_type, result_type)                   \
     template <>                                                                \
     struct bitor_result<base_type, other_type>                                 \
+    {                                                                          \
+        using type = result_type;                                              \
+    }
+
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
+#define BTSHN_MAKE_BITXOR(base_type, other_type, result_type)                  \
+    template <>                                                                \
+    struct bitxor_result<base_type, other_type>                                \
     {                                                                          \
         using type = result_type;                                              \
     }
