@@ -14,6 +14,19 @@ namespace btshn
 
     BTSHN_GENERATE_BINARY_FNS(bitand_result_t, &, &=)
 
+    template <typename T>
+    struct can_bitnot
+    {
+        static constexpr bool value = false;
+    };
+
+#if __cplusplus >= 201703L
+    template <typename T>
+    constexpr inline auto can_bitnot_v = can_bitnot<T>::value;
+#endif
+
+    BTSHN_GENERATE_UNARY_FNS(can_bitnot, ~)
+
     template <typename LHS, typename RHS>
     struct bitor_result;
 
@@ -57,6 +70,14 @@ namespace btshn
     struct bitand_result<base_type, other_type>                                \
     {                                                                          \
         using type = result_type;                                              \
+    }
+
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
+#define BTSHN_MAKE_BITNOT(base_type)                                           \
+    template <>                                                                \
+    struct can_bitnot<base_type>                                               \
+    {                                                                          \
+        static constexpr bool value = true;                                    \
     }
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage)
