@@ -36,23 +36,26 @@
                   is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
               typename std::enable_if_t<                                       \
                   !is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 0>   \
-    constexpr auto operator binary_op(LHS const & lhs, RHS && other) noexcept( \
-        (noexcept((*lhs)binary_op std::forward<RHS>(other))))                  \
+    constexpr auto operator binary_op(LHS && lhs, RHS && other) noexcept(      \
+        (noexcept(                                                             \
+            (*std::forward<LHS>(lhs))binary_op std::forward<RHS>(other))))     \
     {                                                                          \
         /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
-        return result_type<LHS, RHS>{                                          \
-            (*lhs)binary_op std::forward<RHS>(other)};                         \
+        return result_type<remove_cv_ref_t<LHS>, RHS>{                         \
+            (*std::forward<LHS>(lhs))binary_op std::forward<RHS>(other)};      \
     }                                                                          \
     template <typename LHS, typename RHS,                                      \
               typename std::enable_if_t<                                       \
                   is_biztonsag_type<remove_cv_ref_t<LHS>>::value, int> = 0,    \
               typename std::enable_if_t<                                       \
                   is_biztonsag_type<remove_cv_ref_t<RHS>>::value, int> = 1>    \
-    constexpr auto operator binary_op(LHS const & lhs, RHS && other) noexcept( \
-        (noexcept((*lhs)binary_op(*other))))                                   \
+    constexpr auto operator binary_op(LHS && lhs, RHS && other) noexcept(      \
+        (noexcept(                                                             \
+            (*std::forward<LHS>(lhs))binary_op(*std::forward<RHS>(other)))))   \
     {                                                                          \
         /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
-        return result_type<LHS, RHS>{(*lhs)binary_op(*other)};                 \
+        return result_type<remove_cv_ref_t<LHS>, RHS>{                         \
+            (*std::forward<LHS>(lhs))binary_op(*other)};                       \
     }                                                                          \
     template <typename LHS, typename RHS,                                      \
               typename std::enable_if_t<                                       \
@@ -81,7 +84,7 @@
         /* NOLINTNEXTLINE(bugprone-macro-parentheses) */                       \
         static_assert(std::is_same<LHS, result_type<LHS, RHS>>::value,         \
                       "Result is a different type");                           \
-        (*lhs) assign_op(*other);                                              \
+        (*lhs) assign_op(*std::forward<RHS>(other));                           \
         return lhs;                                                            \
     }
 
